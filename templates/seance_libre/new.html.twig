@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SeanceLibre{% endblock %}
+
+{% block body %}
+    <h1>Create new SeanceLibre</h1>
+
+    {{ include('seance_libre/_form.html.twig') }}
+
+    <a href="{{ path('app_seance_libre_index') }}">back to list</a>
+{% endblock %}

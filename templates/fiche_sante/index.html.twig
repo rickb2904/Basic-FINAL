@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FicheSante index{% endblock %}
+
+{% block body %}
+    <h1>FicheSante index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Poids</th>
+                <th>Taille</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fiche_sante in fiche_santes %}
+            <tr>
+                <td>{{ fiche_sante.id }}</td>
+                <td>{{ fiche_sante.poids }}</td>
+                <td>{{ fiche_sante.taille }}</td>
+                <td>{{ fiche_sante.date ? fiche_sante.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_fiche_sante_show', {'id': fiche_sante.id}) }}">show</a>
+                    <a href="{{ path('app_fiche_sante_edit', {'id': fiche_sante.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fiche_sante_new') }}">Create new</a>
+{% endblock %}

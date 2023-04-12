@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SeanceCollective index{% endblock %}
+
+{% block body %}
+    <h1>SeanceCollective index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nb_place</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for seance_collective in seance_collectives %}
+            <tr>
+                <td>{{ seance_collective.id }}</td>
+                <td>{{ seance_collective.nbPlace }}</td>
+                <td>
+                    <a href="{{ path('app_seance_collective_show', {'id': seance_collective.id}) }}">show</a>
+                    <a href="{{ path('app_seance_collective_edit', {'id': seance_collective.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_seance_collective_new') }}">Create new</a>
+{% endblock %}

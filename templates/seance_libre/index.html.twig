@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SeanceLibre index{% endblock %}
+
+{% block body %}
+    <h1>SeanceLibre index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nb_activite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for seance_libre in seance_libres %}
+            <tr>
+                <td>{{ seance_libre.id }}</td>
+                <td>{{ seance_libre.nbActivite }}</td>
+                <td>
+                    <a href="{{ path('app_seance_libre_show', {'id': seance_libre.id}) }}">show</a>
+                    <a href="{{ path('app_seance_libre_edit', {'id': seance_libre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_seance_libre_new') }}">Create new</a>
+{% endblock %}

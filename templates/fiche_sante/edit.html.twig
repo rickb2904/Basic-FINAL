@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit FicheSante{% endblock %}
+
+{% block body %}
+    <h1>Edit FicheSante</h1>
+
+    {{ include('fiche_sante/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_fiche_sante_index') }}">back to list</a>
+
+    {{ include('fiche_sante/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SeanceLibre{% endblock %}
+
+{% block body %}
+    <h1>SeanceLibre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ seance_libre.id }}</td>
+            </tr>
+            <tr>
+                <th>Nb_activite</th>
+                <td>{{ seance_libre.nbActivite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_seance_libre_index') }}">back to list</a>
+
+    <a href="{{ path('app_seance_libre_edit', {'id': seance_libre.id}) }}">edit</a>
+
+    {{ include('seance_libre/_delete_form.html.twig') }}
+{% endblock %}
