@@ -54,14 +54,14 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         if ($user instanceof User) {
             if ($user->getRole() == "adherent") {
-                return new RedirectResponse($this->urlGenerator->generate('app_adherents_index'));
+                return new RedirectResponse($this->urlGenerator->generate('app_adherent_index'));
             } elseif ($user->getRole() == "coach") {
-                return new RedirectResponse($this->urlGenerator->generate('app_coachs_index'));
+                return new RedirectResponse($this->urlGenerator->generate('app_coach_index'));
             }
         }
 
         // Redirect to a default URL if the user role is not adherent or coach
-        return new RedirectResponse($this->urlGenerator->generate('default_route'));
+        return new RedirectResponse($this->urlGenerator->generate('registration'));
     }
 
     protected function getLoginUrl(Request $request): string

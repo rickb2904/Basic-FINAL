@@ -47,7 +47,7 @@ class RegistrationController extends AbstractController
             // Redirect
             if ($user->getRoles() == ['ROLE_ADHERENTS'] ){
 
-                return $this->redirectToRoute('app_adherents_index');
+                return $this->redirectToRoute('app_adherent_index');
 
             }
 
@@ -62,7 +62,7 @@ class RegistrationController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('app_coachs_index');
+            return $this->redirectToRoute('app_coach_index');
         }
 
         return $this->render('registration/index.html.twig', [

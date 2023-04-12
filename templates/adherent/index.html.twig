@@ -1,35 +1,210 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
 
-{% block title %}Adherent index{% endblock %}
 
-{% block body %}
-    <h1>Adherent index</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Top Gym</title>
 
-    <table class="table">
-        <thead>
+
+    <link href="{{ asset('css/adherents.css') }}" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+</head>
+
+<body>
+<section id="hero">
+    <header>
+        <div class="container">
+            <div id="header-logo-mobile" class="top-gym-logo">
+                <a href="#">Basic<br/>Fat</a>
+            </div>
+
+            <nav>
+                <ul class="flex">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Emploi du temps</a></li>
+                    <li><a href="#">Coachs</a></li>
+
+                    <li id="header-logo" class="top-gym-logo">
+                        <a href="#">Basic<br/>Fat</a>
+                    </li>
+                    <li><a href="#">Contact</a></li>
+
+                    <li><a href="#">Fiche de santé</a></li>
+
+                    <li><a href="{{ path('app_logout') }}">Déconnexion </a></li>
+
+                </ul>
+            </nav>
+
+            <button id="hamburger-menu">
+                <span class="strip"></span>
+                <span class="strip"></span>
+                <span class="strip"></span>
+            </button>
+        </div>
+    </header>
+
+    <div id="hero-slider">
+        <div class="hero-slide-item" style="background-image:url('https://www.nosmeilleurescourses.com/19866-large_default_2x/image-blanche-pour-absence-d-image-dans-catalogue-ne-pas-supprimer.jpg');">
+            <div class="hero-slider-marketing">
+
+                <h2 class="title">Bienvenue chez Basic - Fat</h2>
+                <a href="#services"> <button>Voir +</button></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="trainers">
+    <h3>Emploi du Temps</h3>
+    <div class="container">
+        <table class="table-fill">
+            <thead>
             <tr>
-                <th>Id</th>
-                <th>Num_sante</th>
-                <th>actions</th>
+                <th>Numéro</th>
+                <th>Activité</th>
+                <th>Type</th>
+                <th>Heure de début</th>
+                <th>Heure de fin</th>
+                <th>Jour de la semaine</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for adherent in adherents %}
-            <tr>
-                <td>{{ adherent.id }}</td>
-                <td>{{ adherent.numSante }}</td>
-                <td>
-                    <a href="{{ path('app_adherent_show', {'id': adherent.id}) }}">show</a>
-                    <a href="{{ path('app_adherent_edit', {'id': adherent.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for emploi_temp in emploi_temps %}
+                <tr>
+                    <td>{{ emploi_temp.id }}</td>
+                    <td>{{ emploi_temp.nom }}</td>
+                    <td>{{ emploi_temp.type }}</td>
+                    <td>{{ emploi_temp.heureDebut ? emploi_temp.heureDebut|date('H:i') : '' }}</td>
+                    <td>{{ emploi_temp.heureFin ? emploi_temp.heureFin|date('H:i') : '' }}</td>
+                    <td>{{ emploi_temp.jourSemaine ? emploi_temp.jourSemaine|date('d-m-Y') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_emploi_temps_edit', {'id': emploi_temp.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">rien de prévu ....</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button>
+            <a href="{{ path('app_emploi_temps_new') }}">Réserver</a>
+        </button> </div>
+</section>
 
-    <a href="{{ path('app_adherent_new') }}">Create new</a>
-{% endblock %}
+<section id="services">
+    <h3>Services</h3>
+    <div class="flex container">
+        <div class="box">
+            <img src="https://onclickwebdesign.com/wp-content/uploads/services-icon-1.png" alt="Basketball Icon" />
+            <h4>CrossFit</h4>
+            <p>À la salle de sport, vous pouvez trouver des équipements spécifiques
+                pour les entraînements de CrossFit tels que des barres d'haltères, des anneaux de gymnastique, des cordes à sauter et des box pour les sauts.</p>
+        </div>
+
+        <div class="box">
+            <img src="https://onclickwebdesign.com/wp-content/uploads/services-icon-2.png" alt="Bench Press Icon" />
+            <h4>Musculation</h4>
+            <p>À la salle de sport, vous pouvez trouver des équipements de musculation tels que des haltères,
+                des barres et des machines de musculation pour aider à atteindre vos objectifs de fitness.</p>
+        </div>
+
+        <div class="box">
+            <img src="https://onclickwebdesign.com/wp-content/uploads/services-icon-3.png" alt="Stopwatch Icon" />
+            <h4>Yoga</h4>
+            <p>À la salle de sport, vous pouvez trouver des cours de yoga pour tous les niveaux et toutes les pratiques, du hatha yoga plus doux au vinyasa yoga plus dynamique.</p>
+        </div>
+
+        <div class="box">
+            <img src="https://onclickwebdesign.com/wp-content/uploads/services-icon-4.png" alt="Mp3 Player Icon" />
+            <h4>Cardio</h4>
+            <p>À la salle de sport, vous pouvez trouver des équipements cardiovasculaires tels que des tapis de course, des vélos stationnaires, des elliptiques et des rameurs pour vous aider à améliorer votre santé cardiovasculaire.</p>
+
+        </div>
+    </div>
+
+</section>
+
+
+<section id="schedule-services">
+    <div class="flex container">
+        <div class="upcoming-classes-box">
+            <h4>Horaires</h4>
+            <table>
+                <p>
+                <p><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" />
+                    Lundi ->
+                    9:00 - 22:00</p>
+                </p>
+
+                <p>
+                <p><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" />
+                    Mardi ->
+                    9:00 - 22:00</p>
+                </p>
+
+                <p>
+                <p><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" />
+                    Mercredi ->
+                    9:00 - 22:00</p>
+                </p>
+
+                <p>
+                <p><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" />
+                    Jeudi ->
+                    9:00 - 22:00</p>
+                </p>
+
+                <p>
+                <p><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" />
+                    Vendredi ->
+                    9:00 - 22:00</p>
+                </p>
+
+                <p>
+                <p><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" />
+                    Samedi ->
+                    9:00 - 12:00</p>
+                </p>
+
+            </table>
+        </div>
+
+        <div class="membership-cards-box">
+            <div class="inner-container">
+                <h4>Fiche Santé</h4>
+                <button>Accéder</button>
+
+            </div>
+        </div>
+
+        <div class="personal-trainer-box">
+            <strong> RIEN</strong>
+            <h4></h4>
+            <p></p>
+            <button>Voir</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+
+    <div class="footer-container">
+        <small>
+            Copyright &copy;2023 Tous droits réservés | Basic - Fat <span class="fa fa-dumbbell"></span>
+        </small>
+    </div>
+
+</footer>
+
+
+</body>
+</html>

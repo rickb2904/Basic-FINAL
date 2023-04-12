@@ -1,33 +1,187 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Coach index{% endblock %}
 
 {% block body %}
-    <h1>Coach index</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Top Gym</title>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for coach in coaches %}
-            <tr>
-                <td>{{ coach.id }}</td>
-                <td>
-                    <a href="{{ path('app_coach_show', {'id': coach.id}) }}">show</a>
-                    <a href="{{ path('app_coach_edit', {'id': coach.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" />
+        <link href="{{ asset('css/adherents.css') }}" rel="stylesheet" type="text/css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/95dc93da07.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    </head>
 
-    <a href="{{ path('app_coach_new') }}">Create new</a>
+    <body>
+    <section id="hero">
+        <header>
+            <div class="container">
+                <div id="header-logo-mobile" class="top-gym-logo">
+                    <a href="#">Basic<br/>Fat</a>
+                </div>
+
+                <nav>
+                    <ul class="flex">
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#">Emploi du temps</a></li>
+                        <li><a href="#">Les Adhérents</a></li>
+
+                        <li id="header-logo" class="top-gym-logo">
+                            <a href="#">Basic<br/>Fat</a>
+                        </li>
+                        <li><a href="{{ path('registration') }}">Inscription</a></li>
+
+                        <li><a href="#">Fiche de santé</a></li>
+
+                        <li><a href="{{ path('app_logout') }}">Déconnexion </a></li>
+
+                    </ul>
+                </nav>
+
+                <button id="hamburger-menu">
+                    <span class="strip"></span>
+                    <span class="strip"></span>
+                    <span class="strip"></span>
+                </button>
+            </div>
+        </header>
+
+        <div id="hero-slider">
+            <div class="hero-slide-item" style="background-image:url('https://www.nosmeilleurescourses.com/19866-large_default_2x/image-blanche-pour-absence-d-image-dans-catalogue-ne-pas-supprimer.jpg');">
+                <div class="hero-slider-marketing">
+
+                    <h2 class="title">Bienvenue chez Basic - Fat</h2>
+                    <a href="#services"> <button>Voir +</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="services">
+        <h3>Services</h3>
+        <div class="flex container">
+            <div class="box">
+                <img src="https://onclickwebdesign.com/wp-content/uploads/services-icon-1.png" alt="Basketball Icon" />
+                <h4>CrossFit</h4>
+                <p>À la salle de sport, vous pouvez trouver des équipements spécifiques
+                    pour les entraînements de CrossFit tels que des barres d'haltères, des anneaux de gymnastique, des cordes à sauter et des box pour les sauts.</p>
+            </div>
+
+            <div class="box">
+                <img src="https://onclickwebdesign.com/wp-content/uploads/services-icon-2.png" alt="Bench Press Icon" />
+                <h4>Musculation</h4>
+                <p>À la salle de sport, vous pouvez trouver des équipements de musculation tels que des haltères,
+                    des barres et des machines de musculation pour aider à atteindre vos objectifs de fitness.</p>
+            </div>
+
+            <div class="box">
+                <img src="https://onclickwebdesign.com/wp-content/uploads/services-icon-3.png" alt="Stopwatch Icon" />
+                <h4>Yoga</h4>
+                <p>À la salle de sport, vous pouvez trouver des cours de yoga pour tous les niveaux et toutes les pratiques, du hatha yoga plus doux au vinyasa yoga plus dynamique.</p>
+            </div>
+
+            <div class="box">
+                <img src="https://onclickwebdesign.com/wp-content/uploads/services-icon-4.png" alt="Mp3 Player Icon" />
+                <h4>Cardio</h4>
+                <p>À la salle de sport, vous pouvez trouver des équipements cardiovasculaires tels que des tapis de course, des vélos stationnaires, des elliptiques et des rameurs pour vous aider à améliorer votre santé cardiovasculaire.</p>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="schedule-services">
+        <div class="flex container">
+            <div class="upcoming-classes-box">
+                <h4>Horaires</h4>
+                <table>
+                    <tr>
+                        <td><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" /></td>
+                        <td>Lundi</td>
+                        <td>9:00 - 22:00</td>
+                    </tr>
+
+                    <tr>
+                        <td><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" /></td>
+                        <td>Mardi</td>
+                        <td>9:00 - 22:00</td>
+                    </tr>
+
+                    <tr>
+                        <td><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" /></td>
+                        <td>Mercredi</td>
+                        <td>9:00 - 22:00</td>
+                    </tr>
+
+                    <tr>
+                        <td><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" /></td>
+                        <td>Jeudi</td>
+                        <td>9:00 - 22:00</td>
+                    </tr>
+
+                    <tr>
+                        <td><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" /></td>
+                        <td>Vendredi</td>
+                        <td>9:00 - 22:00</td>
+                    </tr>
+
+                    <tr>
+                        <td><img src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png" alt="Stopwatch" /></td>
+                        <td>Samedi</td>
+                        <td>9:00 - 12:00</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="membership-cards-box">
+                <div class="inner-container">
+                    <h4>Fiche Santé</h4>
+                    <button>Accéder</button>
+
+                </div>
+            </div>
+
+            <div class="personal-trainer-box">
+                <strong>Emploi du temps </strong>
+                <h4></h4>
+                <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla pretium.Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla pretium.</p>
+                <button>Voir</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+
+        <div class="footer-container">
+            <small>
+                Copyright &copy;2023 Tous droits réservés | Basic - Fat <span class="fa fa-dumbbell"></span>
+            </small>
+        </div>
+
+    </footer>
+
+    <div id="search-container">
+        <span id="search-container-hide" class="fa fa-times"></span>
+        <h3>Search</h3>
+        <div class="search-container-input">
+            <input type="text" name="search" placeholder="Search this site" />
+            <button>Search</button>
+        </div>
+    </div>
+
+    <div id="video-frame">
+        <span id="video-frame-hide" class="fa fa-times"></span>
+        <div class="video-frame-container">
+            <div class="video-frame-scaler">
+                <iframe id="embed-video" src="https://www.youtube.com/embed/WCBEammPsu0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    </body>
+    </html>
 {% endblock %}
