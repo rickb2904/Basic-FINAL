@@ -23,9 +23,9 @@ class SeanceLibre
     private $nb_activite;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="seancelibre")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="seancelibre")
      */
-    private $adherent;
+    private $user;
 
     public function getId(): ?int
     {
@@ -44,15 +44,20 @@ class SeanceLibre
         return $this;
     }
 
-    public function getAdherent(): ?Adherent
+    /**
+     * @return mixed
+     */
+    public function getUser()
     {
-        return $this->adherent;
+        return $this->user;
     }
 
-    public function setAdherent(?Adherent $adherent): self
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
     {
-        $this->adherent = $adherent;
-
-        return $this;
+        $this->user = $user;
     }
+
 }

@@ -33,9 +33,25 @@ class FicheSante
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="fichesan")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="fichesan")
      */
-    private $adherent;
+    private $user;
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
 
     public function getId(): ?int
     {
@@ -78,15 +94,4 @@ class FicheSante
         return $this;
     }
 
-    public function getAdherent(): ?Adherent
-    {
-        return $this->adherent;
-    }
-
-    public function setAdherent(?Adherent $adherent): self
-    {
-        $this->adherent = $adherent;
-
-        return $this;
-    }
 }

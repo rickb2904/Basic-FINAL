@@ -23,14 +23,27 @@ class SeanceCollective
     private $nb_place;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="seancecollective")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="seancecollective")
      */
-    private $adherent;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Coach::class, inversedBy="seancecollective")
+     * @return mixed
      */
-    private $coach;
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
+
 
     public function getId(): ?int
     {
@@ -49,27 +62,4 @@ class SeanceCollective
         return $this;
     }
 
-    public function getAdherent(): ?Adherent
-    {
-        return $this->adherent;
-    }
-
-    public function setAdherent(?Adherent $adherent): self
-    {
-        $this->adherent = $adherent;
-
-        return $this;
-    }
-
-    public function getCoach(): ?Coach
-    {
-        return $this->coach;
-    }
-
-    public function setCoach(?Coach $coach): self
-    {
-        $this->coach = $coach;
-
-        return $this;
-    }
 }
