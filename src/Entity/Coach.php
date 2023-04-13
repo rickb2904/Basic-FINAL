@@ -10,14 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CoachRepository::class)
  */
-class Coach
+class Coach extends User
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
 
     /**
      * @ORM\OneToMany(targetEntity=SeanceCollective::class, mappedBy="coach")
@@ -33,11 +27,6 @@ class Coach
     {
         $this->seancecollective = new ArrayCollection();
         $this->adherent = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**
