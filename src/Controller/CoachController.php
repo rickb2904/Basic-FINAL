@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Coach;
 use App\Form\CoachType;
-use App\Repository\AdherentRepository;
 use App\Repository\CoachRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,11 +18,10 @@ class CoachController extends AbstractController
     /**
      * @Route("/", name="app_coach_index", methods={"GET"})
      */
-    public function index(CoachRepository $coachRepository,AdherentRepository $adherentRepository): Response
+    public function index(CoachRepository $coachRepository): Response
     {
         return $this->render('coach/index.html.twig', [
             'coaches' => $coachRepository->findAll(),
-            'adherents' => $adherentRepository->findAll(),
         ]);
     }
 

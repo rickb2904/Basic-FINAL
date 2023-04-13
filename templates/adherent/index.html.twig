@@ -25,16 +25,15 @@
             <nav>
                 <ul class="flex">
                     <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Séances</a></li>
-                    <li><a href="#">Les Coachs</a></li>
+                    <li><a href="#">Emploi du temps</a></li>
+                    <li><a href="#">Coachs</a></li>
 
                     <li id="header-logo" class="top-gym-logo">
                         <a href="#">Basic<br/>Fat</a>
                     </li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="#">Contact</a></li>
 
-                    <li><a href="{{ path('app_fiche_sante_new') }}">Fiche de santé</a></li>
-
+                    <li><a href="#">Fiche de santé</a></li>
 
                     <li><a href="{{ path('app_logout') }}">Déconnexion </a></li>
 
@@ -58,6 +57,47 @@
             </div>
         </div>
     </div>
+</section>
+
+
+<section id="trainers">
+    <h3>Emploi du Temps</h3>
+    <div class="container">
+        <table class="table-fill">
+            <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Activité</th>
+                <th>Type</th>
+                <th>Heure de début</th>
+                <th>Heure de fin</th>
+                <th>Jour de la semaine</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for emploi_temp in emploi_temps %}
+                <tr>
+                    <td>{{ emploi_temp.id }}</td>
+                    <td>{{ emploi_temp.nom }}</td>
+                    <td>{{ emploi_temp.type }}</td>
+                    <td>{{ emploi_temp.heureDebut ? emploi_temp.heureDebut|date('H:i') : '' }}</td>
+                    <td>{{ emploi_temp.heureFin ? emploi_temp.heureFin|date('H:i') : '' }}</td>
+                    <td>{{ emploi_temp.jourSemaine ? emploi_temp.jourSemaine|date('d-m-Y') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_emploi_temps_edit', {'id': emploi_temp.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">rien de prévu ....</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button>
+            <a href="{{ path('app_emploi_temps_new') }}">Réserver</a>
+        </button> </div>
 </section>
 
 <section id="services">
@@ -141,15 +181,7 @@
         <div class="membership-cards-box">
             <div class="inner-container">
                 <h4>Fiche Santé</h4>
-                {% for fiche in fichesan %}
-
-                    <p>{{ fiche.adherent }}</p>
-                    <p>{{ fiche.poids }}</p>
-                    <p>{{ fiche.taille }}</p>
-                    <p>{{ fiche.date ? fiche.date|date('Y-m-d') : '' }}</p>
-
-                {% endfor %}
-                <button><a href="{{ path('app_fiche_sante_edit', {'id': '1'}) }}" >Modifier</a></button>
+                <button>Accéder</button>
 
             </div>
         </div>

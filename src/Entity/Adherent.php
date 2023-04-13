@@ -10,9 +10,19 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=AdherentRepository::class)
  */
-class Adherent extends User
+class Adherent
 {
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $num_sante;
 
     /**
      * @ORM\OneToMany(targetEntity=FicheSante::class, mappedBy="adherent")
@@ -25,7 +35,7 @@ class Adherent extends User
     private $seancelibre;
 
     /**
-     * @ORM\ManyToMany(targetEntity=SeanceCollective::class, mappedBy="adherent")
+     * @ORM\OneToMany(targetEntity=SeanceCollective::class, mappedBy="adherent")
      */
     private $seancecollective;
 
@@ -41,6 +51,22 @@ class Adherent extends User
         $this->seancecollective = new ArrayCollection();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNumSante(): ?int
+    {
+        return $this->num_sante;
+    }
+
+    public function setNumSante(int $num_sante): self
+    {
+        $this->num_sante = $num_sante;
+
+        return $this;
+    }
 
     /**
      * @return Collection<int, FicheSante>
