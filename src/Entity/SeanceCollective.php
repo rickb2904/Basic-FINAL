@@ -23,7 +23,7 @@ class SeanceCollective
     private $nb_place;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Adherent::class, inversedBy="seancecollective")
+     * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="seancecollective")
      */
     private $adherent;
 
