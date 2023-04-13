@@ -3,6 +3,8 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\AdherentRepository;
+use App\Repository\CoachRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,10 +25,17 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
 
     private UrlGeneratorInterface $urlGenerator;
+    private AdherentRepository $adherentRepository;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    private CoachRepository $coachRepository;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, AdherentRepository $adherentRepository, CoachRepository $coachRepository)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->adherentRepository = $adherentRepository;
+        $this->coachRepository = $coachRepository;
+
+
     }
 
     public function authenticate(Request $request): Passport
@@ -35,13 +44,34 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-        return new Passport(
-            new UserBadge($email),
-            new PasswordCredentials($request->request->get('password', '')),
-            [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
-            ]
-        );
+        if ($this->coachRepository->findBy(['email' => $email])){
+
+            return new Passport(
+                new UserBadge($email, function (string $userIdentifier) {
+                    return $this->coachRepository->findOneBy(['email' => $userIdentifier]);
+                }),
+                new PasswordCredentials($request->request->get('password', '')),
+                [
+                    new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+                ]
+            );
+
+        }
+//elseif($this->adherentRepository->findOneBy(['email' => $email])
+        else {
+
+            return new Passport(
+                new UserBadge($email, function (string $userIdentifier)  {
+                    return $this->adherentRepository->findBy(['email' => $userIdentifier]);
+                }),
+                new PasswordCredentials($request->request->get('password', '')),
+                [
+                    new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+                ]
+            );
+
+        }
+
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
@@ -53,9 +83,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         if ($user instanceof User) {
-            if ($user->getRole() == "adherent") {
+            if (in_array('ROLE_ADHERENTS', $user->getRoles())) {
                 return new RedirectResponse($this->urlGenerator->generate('app_adherent_index'));
-            } elseif ($user->getRole() == "coach") {
+            } elseif (in_array('ROLE_COACHS', $user->getRoles())) {
                 return new RedirectResponse($this->urlGenerator->generate('app_coach_index'));
             }
         }

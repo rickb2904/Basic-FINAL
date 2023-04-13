@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Adherent;
+use App\Entity\Coach;
 use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,41 +32,51 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encode the new users password
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
 
             // Set their role
-            if ($user->getRole() == 'adherent' ){
+            if ($user->getRole() == 'adherent') {
 
-                $user->setRoles(['ROLE_ADHERENTS']);
-            }
+                $adherent = new Adherent();
 
-            if ($user->getRole() == 'coach' ){
+                $adherent->setEmail($user->getEmail());
+                $adherent->setNom($user->getNom());
+                $adherent->setPrenom($user->getPrenom());
+                $adherent->setRole($user->getRole());
 
-                $user->setRoles(['ROLE_COACHS']);
-            }
+                $adherent->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
 
-            // Redirect
-            if ($user->getRoles() == ['ROLE_ADHERENTS'] ){
+                $adherent->setRoles(['ROLE_ADHERENTS']);
+
+
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($adherent);
+                $em->flush();
 
                 return $this->redirectToRoute('app_adherent_index');
-
             }
 
-            elseif ($user->getRoles() == ['ROLE_COACHS'] ){
+            if ($user->getRole() == 'coach') {
+
+                $coach = new Coach();
+
+                $coach->setEmail($user->getEmail());
+                $coach->setNom($user->getNom());
+                $coach->setPrenom($user->getPrenom());
+
+                $coach->setRole($user->getRole());
+
+                $coach->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+
+                $coach->setRoles(['ROLE_COACHS']);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($coach);
+                $em->flush();
 
                 return $this->redirectToRoute('app_coach_index');
-
             }
-
-            // Save
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirectToRoute('app_coach_index');
         }
-
         return $this->render('registration/index.html.twig', [
             'form' => $form->createView(),
         ]);
