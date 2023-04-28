@@ -75,29 +75,9 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody>
-            {% for emploi_temp in emploi_temps %}
-                <tr>
-                    <td>{{ emploi_temp.id }}</td>
-                    <td>{{ emploi_temp.nom }}</td>
-                    <td>{{ emploi_temp.type }}</td>
-                    <td>{{ emploi_temp.heureDebut ? emploi_temp.heureDebut|date('H:i') : '' }}</td>
-                    <td>{{ emploi_temp.heureFin ? emploi_temp.heureFin|date('H:i') : '' }}</td>
-                    <td>{{ emploi_temp.jourSemaine ? emploi_temp.jourSemaine|date('d-m-Y') : '' }}</td>
-                    <td>
-                        <a href="{{ path('app_emploi_temps_edit', {'id': emploi_temp.id}) }}">Modifier</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="7">rien de prévu ....</td>
-                </tr>
-            {% endfor %}
-            </tbody>
+
         </table>
-        <button>
-            <a href="{{ path('app_emploi_temps_new') }}">Réserver</a>
-        </button> </div>
+    </div>
 </section>
 
 <section id="services">
