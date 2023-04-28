@@ -39,10 +39,10 @@ class RegistrationController extends AbstractController
             $em->flush();
 
             // Redirect
-            return $this->redirectToRoute('app_adherent_index');
+            return $this->redirectToRoute('app_adherent');
         }
 
-        return $this->render('adherent/index.html.twig', [
+        return $this->render('registration/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -67,10 +67,10 @@ class RegistrationController extends AbstractController
             $em->flush();
 
             // Redirect
-            return $this->redirectToRoute('app_coach_index');
+            return $this->redirectToRoute('app_coach');
         }
 
-        return $this->render('coach/index.html.twig', [
+        return $this->render('registration/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }

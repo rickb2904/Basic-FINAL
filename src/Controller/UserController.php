@@ -18,6 +18,14 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        $user = $this->getUser();
+
+        if ($user->getRole() == "adherent") {
+            return $this->redirectToRoute('app_adherent');
+        } elseif ($user->getRole() == "coach") {
+            return $this->redirectToRoute('app_coach');
+        }
+
         $users = $userRepository->findAll();
 
         return $this->render('user/index.html.twig', [
@@ -25,6 +33,21 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/adherent", name="app_adherent")
+     */
+    public function adherent(): Response
+    {
+        return $this->render('adherent/index.html.twig');
+    }
+
+    /**
+     * @Route("/coach", name="app_coach")
+     */
+    public function coach(): Response
+    {
+        return $this->render('coach/index.html.twig');
+    }
 
     /**
      * @Route("/users/new", name="app_users_new")
