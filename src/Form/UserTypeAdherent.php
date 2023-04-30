@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -19,16 +18,26 @@ class UserTypeAdherent extends AbstractType
     {
         $array = array('coach, adherent');
         $builder
-            ->add('email', EmailType::class)
-            ->add('nom', TextType::class)
-            ->add('prenom',TextType::class)
+
+            ->add('email', EmailType::class, [
+                'label' => "E-Mail :",
+            ])
+
+            ->add('nom', TextType::class, [
+                'label' => "Nom :",
+            ])
+
+            ->add('prenom',TextType::class, [
+                'label' => "Prénom :",
+            ])
+
             ->add('role', HiddenType::class, [
                 'data' => 'adherent'
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirm Password']
+                'first_options' => ['label' => 'Mot de passe :'],
+                'second_options' => ['label' => 'Confirmer le mot de passe :']
             ])
         ;
     }

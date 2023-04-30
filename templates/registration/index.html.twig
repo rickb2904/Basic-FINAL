@@ -1,5 +1,76 @@
 {# templates/registration/index.html.twig #} {% extends 'base.html.twig' %} {%
     block body %}
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            font-family: "Open Sans", arial;
+
+        }
+
+        .card {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .form_group {
+            margin-top:30px;
+            margin-bottom: 25px;
+            margin-left: 20px;
+
+
+        }
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px #007bff;
+        }
+
+        button[type=submit] {
+            background-color: #007bff;
+            border: none;
+            text-align: right; /* Ajout de la propriété text-align */
+
+            border-radius: 5px;
+            padding: 10px 20px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button[type=submit]:hover {
+            background-color: #0069d9;
+        }
+    </style>
+
     <div class="container">
         <div class="row">
             <div class="col-md-10 ml-md-auto">
@@ -7,11 +78,14 @@
                     <div class="card-body">
                         <div class="card-header mb-3">Nouveau Compte</div>
                         {{ form_start(form) }}
+
+
                         <div class="form_group">
                             <div class="col-md-12 mb-3">
                                 {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
                             </div>
                         </div>
+
                         <div class="form_group">
                             <div class="col-md-12 mb-3">
                                 {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
@@ -45,7 +119,7 @@
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Register
+                                     Ajouter
                                 </button>
                             </div>
                         </div>
