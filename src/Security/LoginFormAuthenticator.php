@@ -60,8 +60,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             }
         }
 
-
-
     // Redirect to a default URL if the user role is not adherent or coach
         return new RedirectResponse($this->urlGenerator->generate('registration'));
     }

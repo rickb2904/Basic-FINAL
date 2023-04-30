@@ -30,8 +30,10 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
+            'user_list' => $this->generateUrl('app_users_index'), // Déclaration de la variable user_list
         ]);
     }
+
 
     /**
      * @Route("/adherent", name="app_adherent")
