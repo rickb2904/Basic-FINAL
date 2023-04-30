@@ -3,9 +3,30 @@
 {% block title %}New SeanceLibre{% endblock %}
 
 {% block body %}
-    <h1>Create new SeanceLibre</h1>
+    <style>
+        body {
+            text-align: center;
+
+        }
+        h1 {
+            text-decoration: underline;
+            color: #000000;
+        }
+
+        input {
+            border: 1px solid black;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: red;
+        }
+
+    </style>
+    <h1>Créer une nouvelle séance libre</h1>
 
     {{ include('seance_libre/_form.html.twig') }}
 
-    <a href="{{ path('app_seance_libre_index') }}">back to list</a>
+    <a href="{{ path('app_seance_libre_index') }}">Retour à la liste</a>
 {% endblock %}

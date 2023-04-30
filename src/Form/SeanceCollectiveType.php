@@ -16,11 +16,9 @@ class SeanceCollectiveType extends AbstractType
         $builder
             ->add('nb_place', IntegerType::class, [
                 'label' => 'Nombre de places',
-                'required' => true,
             ])
             ->add('nomSeanceCollective', TextType::class, [
                 'label' => 'Nom de la séance collective',
-                'required' => true,
             ])
         ;
     }
