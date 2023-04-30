@@ -23,6 +23,11 @@ class SeanceCollective
     private $nb_place;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom_seancecollective;
+
+    /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="seancecollective")
      */
     private $user;
@@ -43,8 +48,6 @@ class SeanceCollective
         $this->user = $user;
     }
 
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -62,4 +65,15 @@ class SeanceCollective
         return $this;
     }
 
+    public function getNomSeanceCollective(): ?string
+    {
+        return $this->nom_seancecollective;
+    }
+
+    public function setNomSeanceCollective(string $nom_seancecollective): self
+    {
+        $this->nom_seancecollective = $nom_seancecollective;
+
+        return $this;
+    }
 }

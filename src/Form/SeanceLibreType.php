@@ -13,6 +13,7 @@ class SeanceLibreType extends AbstractType
     {
         $builder
             ->add('nb_activite')
+            ->add('nomSeanceLibre')
         ;
     }
 

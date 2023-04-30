@@ -1,35 +1,166 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}SeanceCollective index{% endblock %}
-
 {% block body %}
-    <h1>SeanceCollective index</h1>
+    <style>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nb_place</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for seance_collective in seance_collectives %}
-            <tr>
-                <td>{{ seance_collective.id }}</td>
-                <td>{{ seance_collective.nbPlace }}</td>
-                <td>
-                    <a href="{{ path('app_seance_collective_show', {'id': seance_collective.id}) }}">show</a>
-                    <a href="{{ path('app_seance_collective_edit', {'id': seance_collective.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        body {
+            font-family: "Open Sans", arial;
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            height: 320px;
+            border-collapse: collapse;
+            border: 1px solid #38678f;
+            margin: 50px auto;
+            background: white;
+        }
+        th {
+            background: steelblue;
+            height: 54px;
+            width: 25%;
+            font-weight: lighter;
+            text-shadow: 0 1px 0 #38678f;
+            color: white;
+            border: 1px solid #38678f;
+            box-shadow: inset 0px 1px 2px #568ebd;
+            transition: all 0.2s;
+        }
+        tr {
+            border-bottom: 1px solid #cccccc;
+        }
+        tr:last-child {
+            border-bottom: 0px;
+        }
+        td {
+            border-right: 1px solid #cccccc;
+            padding: 10px;
+            transition: all 0.2s;
+        }
+        td:last-child {
+            border-right: 0px;
+        }
+        td.selected {
+            background: #d7e4ef;
+        }
+        td input {
+            font-size: 14px;
+            background: none;
+            outline: none;
+            border: 0;
+            display: table-cell;
+            height: 100%;
+            width: 100%;
+        }
+        td input:focus {
+            box-shadow: 0 1px 0 steelblue;
+            color: steelblue;
+        }
+        ::-moz-selection {
+            background: steelblue;
+            color: white;
+        }
+        ::selection {
+            background: steelblue;
+            color: white;
+        }
+        .content p,
+        .content pre,
+        .content h2 {
+            text-align: left;
+        }
+        .content pre {
+            padding: 1.2em 0 0.5em;
+            background: white;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            color: #38678f;
+        }
+        .content .download {
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding: 1em 1em;
+            border-radius: 12em;
+            margin-bottom: 2em;
+        }
+        .content .button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            height: 48px;
+            line-height: 48px;
+            padding: 0 20px;
+            border-radius: 24px;
+            border: 1px solid #38678f;
+            background: steelblue;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 1px 3px rgba(255, 255, 255, 0.2);
+            transition: all 0.1s;
+        }
+        .content .button:hover {
+            background: #4f8aba;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .content .button:active {
+            color: #294d6b;
+            background: #427aa9;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .content .button:focus {
+            outline: none;
+        }
+        h1 {
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text-decoration: underline;
+        }
+    </style>
 
-    <a href="{{ path('app_seance_collective_new') }}">Create new</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="text-center">Liste Séance Collective</h1>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom de la séance</th>
+                        <th>Nombre de places</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for seance_collective in seance_collectives %}
+                        <tr>
+                            <td>{{ seance_collective.nomSeanceCollective }}</td>
+                            <td>{{ seance_collective.nbPlace }}</td>
+                            <td>
+                                <a href="{{ path('app_seance_collective_show', {'id': seance_collective.id}) }}" class="btn btn-sm btn-info">Voir</a>
+                                <a href="{{ path('app_seance_collective_edit', {'id': seance_collective.id}) }}" class="btn btn-sm btn-warning">Modifier</a>
+                            </td>
+
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucune séance enregistrée</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+
+                        <th colspan="5">
+                            <a href="{{ path('app_seance_collective_new') }}">
+                            <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Nouvelle Séance Collective&nbsp;</button></th>
+                        </a>
+                    </tr>
+                    </tfoot>
+                </table>
+
+                <div class="text-center">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -23,6 +23,11 @@ class SeanceLibre
     private $nb_activite;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom_seancelibre;
+
+    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="seancelibre")
      */
     private $user;
@@ -58,6 +63,18 @@ class SeanceLibre
     public function setUser($user): void
     {
         $this->user = $user;
+    }
+
+    public function getNomSeanceLibre(): ?string
+    {
+        return $this->nom_seancelibre;
+    }
+
+    public function setNomSeanceLibre(string $nom_seancelibre): self
+    {
+        $this->nom_seancelibre = $nom_seancelibre;
+
+        return $this;
     }
 
 }
