@@ -3,35 +3,93 @@
 {% block title %}Activite index{% endblock %}
 
 {% block body %}
-    <h1>Activite index</h1>
+    <style>
+        a{
+            text-decoration: none;
+            color: #1b1e24;
+        }
+
+        body {
+            font-family: "Open Sans", arial;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            height: 320px;
+            border-collapse: collapse;
+            border: 1px solid #000000;
+            margin: 50px auto;
+            background: white;
+        }
+        th {
+            background: #aa24c0;
+            height: 54px;
+            width: 25%;
+            font-weight: lighter;
+            color: white;
+            box-shadow: inset 1px 1px 1px #000000;
+            transition: all 0.2s;
+        }
+        tr {
+            border-bottom: 1px solid #000000;
+        }
+        tr:last-child {
+            border-bottom: 0px;
+        }
+        td {
+            border-right: 1px solid #090909;
+            padding: 10px;
+            transition: all 0.2s;
+        }
+
+        td input {
+            font-size: 14px;
+            background: none;
+            outline: none;
+            border: 0;
+            display: table-cell;
+            height: 100%;
+            width: 100%;
+        }
+        h1 {
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text-decoration: underline;
+        }
+    </style>
+    <h1>Liste des Activités</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Type_activite</th>
-                <th>Nom_activite</th>
-                <th>actions</th>
+                <th>Type d'activité</th>
+                <th>Nom de l'activité</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for activite in activites %}
             <tr>
-                <td>{{ activite.id }}</td>
                 <td>{{ activite.typeActivite }}</td>
                 <td>{{ activite.nomActivite }}</td>
                 <td>
-                    <a href="{{ path('app_activite_show', {'id': activite.id}) }}">show</a>
-                    <a href="{{ path('app_activite_edit', {'id': activite.id}) }}">edit</a>
+                    <a href="{{ path('app_activite_show', {'id': activite.id}) }}">Voir</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="3">Aucune séance enregistrée</td>
             </tr>
         {% endfor %}
+        <tr>
+            <th colspan="5">
+                <a href="{{ path('app_activite_new') }}">
+                    <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls">&nbsp; Nouvelle Séance Collective&nbsp;</button>
+                </a>
+            </th>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_activite_new') }}">Create new</a>
 {% endblock %}
