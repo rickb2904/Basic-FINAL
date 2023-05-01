@@ -20,17 +20,15 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($user->getRole() == "adherent") {
+        if ($user !== null && $user->getRole() == "adherent") {
             return $this->redirectToRoute('app_adherent');
-        } elseif ($user->getRole() == "coach") {
+        } elseif ($user !== null && $user->getRole() == "coach") {
             return $this->redirectToRoute('app_coach');
         }
-
         $users = $userRepository->findAll();
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
-            'user_list' => $this->generateUrl('app_users_index'), // Déclaration de la variable user_list
         ]);
     }
 
@@ -48,8 +46,14 @@ class UserController extends AbstractController
      */
     public function coach(): Response
     {
-        return $this->render('coach/index.html.twig');
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $users = $userRepository->findBy(['role' => 'adherent']);
+
+        return $this->render('coach/index.html.twig', [
+            'users' => $users,
+        ]);
     }
+
 
     /**
      * @Route("/users/new", name="app_users_new")
@@ -63,7 +67,7 @@ class UserController extends AbstractController
         } elseif ($request->get('type') == 'coach') {
             $form = $this->createForm(UserTypeCoach::class, $user);
         } else {
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('app_users_index');
         }
 
         $form->handleRequest($request);
@@ -73,7 +77,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('app_users_index');
         }
 
         return $this->renderForm('user/new.html.twig', [
@@ -87,7 +91,7 @@ class UserController extends AbstractController
     public function show(User $user): Response
     {
         if ($user->getRole() == "coach") {
-            return $this->render('user/coach_show.html.twig', [
+            return $this->render('user/show.html.twig', [
                 'user' => $user,
             ]);
         }

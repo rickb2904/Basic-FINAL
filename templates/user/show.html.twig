@@ -21,18 +21,18 @@
             </tr>
             <tr>
                 <th>Mail</th>
-                <td>{{ user.mail }}</td>
+                <td>{{ user.email }}</td>
             </tr>
             <tr>
                 <th>Mdp</th>
-                <td>{{ user.mdp }}</td>
+                <td>{{ user.password }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+    <a href="{{ path('app_users_index') }}">Retour liste</a>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}
