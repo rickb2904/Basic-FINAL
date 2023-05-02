@@ -113,7 +113,7 @@ class UserController extends AbstractController
         } elseif ($user->getRole() == "coach") {
             $form = $this->createForm(UserTypeCoach::class, $user);
         } else {
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('app_users_index');
         }
 
         $form->handleRequest($request);
@@ -121,11 +121,11 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('app_users_index');
         }
 
         if ($user->getRole() == "coach") {
-            return $this->render('user/coach_edit.html.twig', [
+            return $this->render('user/edit.html.twig', [
                 'user' => $user,
                 'form' => $form->createView(),
             ]);
@@ -147,6 +147,6 @@ class UserController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('user_list');
+        return $this->redirectToRoute('app_users_index');
     }
 }

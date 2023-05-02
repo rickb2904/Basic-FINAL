@@ -47,15 +47,7 @@
             </button>
         </div>
     </header>
-    {% for user in users %}
-        {% if user.role == "adherent" %}
-            <tr>
-                <td>{{ user.nom }}</td>
-                <td>{{ user.prenom }}</td>
-                <td>{{ user.email }}</td>
-            </tr>
-        {% endif %}
-    {% endfor %}
+
     <div id="hero-slider">
         <div class="hero-slide-item" style="background-image:url('https://www.nosmeilleurescourses.com/19866-large_default_2x/image-blanche-pour-absence-d-image-dans-catalogue-ne-pas-supprimer.jpg');">
             <div class="hero-slider-marketing">
