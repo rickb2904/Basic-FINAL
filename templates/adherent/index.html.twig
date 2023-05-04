@@ -13,7 +13,15 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 </head>
+<style>
+    li a img {
+        display: block;
+        width: 24px;
+        height: 24px;
+        text-indent: -9999px;
+    }
 
+</style>
 <body>
 <section id="hero">
     <header>
@@ -24,18 +32,20 @@
 
             <nav>
                 <ul class="flex">
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Emploi du temps</a></li>
-                    <li><a href="#">Coachs</a></li>
+                    <li><a href="{{ path('app_seance_collective_index') }}">Séance Libre</a></li>
+                    <li><a href="{{ path('app_seance_collective_index') }}">Séance Collective</a></li>
+
 
                     <li id="header-logo" class="top-gym-logo">
                         <a href="#">Basic<br/>Fat</a>
                     </li>
-                    <li><a href="#">Contact</a></li>
 
-                    <li><a href="#">Fiche de santé</a></li>
+                    <li><a href="#">Fiche Santé</a></li>
 
-                    <li><a href="{{ path('app_logout') }}">Déconnexion </a></li>
+                    <li><a href="{{ path('app_list_users2') }}">Coachs</a></li>
+
+
+                    <li><a href="{{ path('app_logout') }}"><img src="https://cdn-icons-png.flaticon.com/512/25/25376.png" alt="Déconnexion" /></a></li>
 
                 </ul>
             </nav>

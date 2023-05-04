@@ -45,6 +45,20 @@ class UserController extends AbstractController
     }
 
 
+
+    /**
+     * @Route("/listusers2", name="app_list_users2")
+     */
+    public function listeUtilisateurs2(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+
+        return $this->render('coach/list.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+
     /**
      * @Route("/adherent", name="app_adherent")
      */

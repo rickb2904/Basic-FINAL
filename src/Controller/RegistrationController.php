@@ -39,7 +39,7 @@ class RegistrationController extends AbstractController
             $em->flush();
 
             // Redirect
-            return $this->redirectToRoute('app_adherent');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/index.html.twig', [
@@ -67,7 +67,7 @@ class RegistrationController extends AbstractController
             $em->flush();
 
             // Redirect
-            return $this->redirectToRoute('app_coach');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/index.html.twig', [
