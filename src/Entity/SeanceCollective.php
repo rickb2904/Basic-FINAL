@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SeanceCollectiveRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,17 @@ class SeanceCollective
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="seancecollective")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="seancecollective")
+     */
+    private $inscriptions;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
+
 
     /**
      * @return mixed
@@ -73,6 +86,36 @@ class SeanceCollective
     public function setNomSeanceCollective(string $nom_seancecollective): self
     {
         $this->nom_seancecollective = $nom_seancecollective;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setSeancecollective($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getSeancecollective() === $this) {
+                $inscription->setSeancecollective(null);
+            }
+        }
 
         return $this;
     }

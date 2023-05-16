@@ -3,24 +3,24 @@
 {% block title %}SeanceCollective{% endblock %}
 
 {% block body %}
-    <h1>SeanceCollective</h1>
+    <h1>Séance Collective</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <td>{{ seance_collective.id }}</td>
             </tr>
             <tr>
-                <th>Nb_place</th>
+                <th>Places disponibles</th>
                 <td>{{ seance_collective.nbPlace }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_seance_collective_index') }}">back to list</a>
+    <a href="{{ path('app_seance_collective_index') }}">Retour</a>
 
-    <a href="{{ path('app_seance_collective_edit', {'id': seance_collective.id}) }}">edit</a>
+    <a href="{{ path('app_seance_collective_edit', {'id': seance_collective.id}) }}">Modifier</a>
 
     {{ include('seance_collective/_delete_form.html.twig') }}
 {% endblock %}
