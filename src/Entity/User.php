@@ -210,6 +210,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->fichesan;
     }
 
+    
+
     public function addFichesan(FicheSante $fichesan): self
     {
         if (!$this->fichesan->contains($fichesan)) {
@@ -292,6 +294,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
      * @return Collection<int, Inscription>
      */
@@ -320,10 +323,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
-    }
-    public function __toString()
-    {
-        return $this->email;
     }
 
 
