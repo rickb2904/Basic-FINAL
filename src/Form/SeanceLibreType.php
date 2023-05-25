@@ -15,10 +15,10 @@ class SeanceLibreType extends AbstractType
     {
         $builder
             ->add('nb_activite', IntegerType::class, [
-                'label' => "Nombre de places :",
+                'label' => "Nombre de places : ",
             ])
             ->add('nomSeanceLibre', TextType::class, [
-                'label' => "Nom de la séance libre :",
+                'label' => "Nom de la séance libre : ",
             ])
         ;
     }

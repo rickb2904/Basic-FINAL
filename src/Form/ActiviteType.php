@@ -15,10 +15,10 @@ class ActiviteType extends AbstractType
         $builder
 
             ->add('type_activite', TextType::class, [
-                'label' => "Type de l'activité :",
+                'label' => "Type de l'activité : ",
             ])
             ->add('nom_activite', TextType::class, [
-                'label' => "Nom de l'activité :",
+                'label' => "Nom de l'activité : ",
             ])
         ;
     }

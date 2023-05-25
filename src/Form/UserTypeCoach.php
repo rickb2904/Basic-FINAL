@@ -21,15 +21,15 @@ class UserTypeCoach extends AbstractType
         $builder
 
             ->add('email', EmailType::class, [
-                'label' => "E-Mail :",
+                'label' => "E-Mail : ",
             ])
 
             ->add('nom', TextType::class, [
-                'label' => "Nom :",
+                'label' => "Nom : ",
             ])
 
             ->add('prenom',TextType::class, [
-                'label' => "Prénom :",
+                'label' => "Prénom : ",
             ])
 
             ->add('role', HiddenType::class, [
@@ -37,8 +37,8 @@ class UserTypeCoach extends AbstractType
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Mot de passe :'],
-                'second_options' => ['label' => 'Confirmer le mot de passe :']
+                'first_options' => ['label' => 'Mot de passe : '],
+                'second_options' => ['label' => 'Confirmer le mot de passe : ']
             ])
         ;
     }
