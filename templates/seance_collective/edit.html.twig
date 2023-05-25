@@ -3,11 +3,33 @@
 {% block title %}Edit SeanceCollective{% endblock %}
 
 {% block body %}
-    <h1>Edit SeanceCollective</h1>
 
-    {{ include('seance_collective/_form.html.twig', {'button_label': 'Update'}) }}
+    <style>
+        body {
+            text-align: center;
 
-    <a href="{{ path('app_seance_collective_index') }}">back to list</a>
+        }
+        h1 {
+            text-decoration: underline;
+            color: #000000;
+        }
 
-    {{ include('seance_collective/_delete_form.html.twig') }}
+        input {
+            border: 1px solid black;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: red;
+        }
+
+    </style>
+
+    <h1>Modifier la séance collective</h1>
+        <br>
+    {{ include('seance_collective/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <br>
+    <a href="{{ path('app_seance_collective_index') }}">Retour à la liste</a>
+
 {% endblock %}

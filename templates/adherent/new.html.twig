@@ -3,9 +3,11 @@
 {% block title %}New Adherent{% endblock %}
 
 {% block body %}
-    <h1>Create new Adherent</h1>
+    <h1>Nouvel Adhérent</h1>
+    <br>
 
     {{ include('adherent/_form.html.twig') }}
+    <br>
 
-    <a href="{{ path('app_adherent_index') }}">back to list</a>
+    <a href="{{ path('app_adherent') }}">Retour à la liste </a>
 {% endblock %}

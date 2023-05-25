@@ -81,8 +81,16 @@
                             <td>{{ inscription.id }}</td>
                             <td>{{ inscription.date ? inscription.date|date('d-m-Y') : '' }}</td>
                             <td>
-                                <a href="{{ path('app_inscription_show', {'id': inscription.id}) }}">Voir</a>
-                                <a href="{{ path('app_inscription_edit', {'id': inscription.id}) }}">Modifier</a>
+                                <form method="post" action="{{ path('app_inscription_edit', {'id': inscription.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir modifier cet élément ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('modifier' ~ inscription.id) }}">
+                                    <button class="btn">Modifier</button>
+                                </form>
+                                <br>
+                                <form method="post" action="{{ path('app_inscription_delete', {'id': inscription.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cet élément ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inscription.id) }}">
+                                    <button class="btn">Supprimer</button>
+                                </form>
+
                             </td>
                         </tr>
                     {% else %}

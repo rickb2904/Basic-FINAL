@@ -63,7 +63,7 @@
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h1 class="text-center">Liste Séance Collective</h1>
+                <h1 class="text-center">Liste Séances Collectives</h1>
 
                 <table class="table">
                     <thead>
@@ -79,7 +79,16 @@
                             <td>{{ seance_collective.nomSeanceCollective }}</td>
                             <td>{{ seance_collective.nbPlace }}</td>
                             <td>
-                                <a href="{{ path('app_seance_collective_show', {'id': seance_collective.id}) }}" class="btn btn-info btn-sm">➜ Voir la séance</a>
+                                <form method="post" action="{{ path('app_seance_collective_edit', {'id': seance_collective.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir modifier cet élément ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('modifier' ~ seance_collective.id) }}">
+                                    <button class="btn">Modifier</button>
+                                </form>
+                                <br>
+                                <form method="post" action="{{ path('app_seance_collective_delete', {'id': seance_collective.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cet élément ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ seance_collective.id) }}">
+                                    <button class="btn">Supprimer</button>
+                                </form>
+
                             </td>
                         </tr>
                     {% else %}
