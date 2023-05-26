@@ -72,4 +72,5 @@ class Inscription
 
         return $this;
     }
+
 }

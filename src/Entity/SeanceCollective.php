@@ -32,7 +32,7 @@ class SeanceCollective
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="seancecollective")
      */
-    private $user;
+    private $users;
 
     /**
      * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="seancecollective")
@@ -41,24 +41,8 @@ class SeanceCollective
 
     public function __construct()
     {
+        $this->users = new ArrayCollection();
         $this->inscriptions = new ArrayCollection();
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user): void
-    {
-        $this->user = $user;
     }
 
     public function getId(): ?int
@@ -91,6 +75,33 @@ class SeanceCollective
     }
 
     /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addSeancecollective($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeSeancecollective($this);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Inscription>
      */
     public function getInscriptions(): Collection
@@ -111,12 +122,15 @@ class SeanceCollective
     public function removeInscription(Inscription $inscription): self
     {
         if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
             if ($inscription->getSeancecollective() === $this) {
                 $inscription->setSeancecollective(null);
             }
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->nom_seancecollective;
     }
 }
