@@ -40,7 +40,8 @@
                         <a href="#">Basic<br/>Fat</a>
                     </li>
 
-                    <li><a href="#">Fiche Santé</a></li>
+
+                    <li><a href="{{ path('app_fiche_sante_index') }}">Fiche Santé</a></li>
 
                     <li><a href="{{ path('app_list_users2') }}">Coachs</a></li>
 
@@ -49,6 +50,12 @@
 
                 </ul>
             </nav>
+            {% if app.user %}
+                <p style="color: azure">Bienvenue {{ app.user.nom }} {{ app.user.prenom }}</p>
+            {% endif %}
+
+
+
 
             <button id="hamburger-menu">
                 <span class="strip"></span>
@@ -151,8 +158,26 @@
 
         <div class="membership-cards-box">
             <div class="inner-container">
-                <h4>Fiche Santé</h4>
-                <button>Accéder</button>
+                <center><h4>Fiche Santé</h4>
+
+                {% for fiche in ficheS %}
+                    {% set imc = fiche.poids / (fiche.taille / 100 * fiche.taille / 100) %}
+                    <p>Nom : {{app.user.nom}}</p>
+                    <p>Prenom : {{app.user.prenom}}</p>
+                    <p>Poids  : {{ fiche.poids}} kg</p>
+                    <p>Taille : {{ fiche.taille}} cm</p>
+                    <p>IMC : {{ imc }}</p>
+                    <p>Date de création : {{ fiche.date|date('d-m-Y') }}</p>
+
+                    {% if imc > 25 %}
+                        <p style="color: red">Faites attention, votre IMC indique une obésité morbide (LOIC)</p>
+                    {% elseif imc < 18 %}
+                        <p style="color: orange">Votre IMC est trop bas</p>
+                    {% else %}
+                        <p style="color: #03ad06">Votre IMC est dans la plage normale</p>
+                    {% endif %}
+                {% endfor %}
+                </center>
 
             </div>
         </div>

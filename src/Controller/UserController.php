@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserTypeCoach;
 use App\Form\UserTypeAdherent;
+use App\Repository\FicheSanteRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,9 +63,15 @@ class UserController extends AbstractController
     /**
      * @Route("/adherent", name="app_adherent")
      */
-    public function adherent(): Response
+    public function adherent(UserRepository $userRepository, FicheSanteRepository $ficheSanteRepository): Response
     {
-        return $this->render('adherent/index.html.twig');
+        $users = $userRepository->findBy(['role' => 'adherent']);
+
+        return $this->render('adherent/index.html.twig', [
+            'users' => $users,
+            'ficheS' => $ficheSanteRepository->findAll(),
+
+        ]);
     }
 
     /**
