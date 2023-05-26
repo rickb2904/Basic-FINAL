@@ -3,11 +3,36 @@
 {% block title %}Edit SeanceLibre{% endblock %}
 
 {% block body %}
-    <h1>Edit SeanceLibre</h1>
 
-    {{ include('seance_libre/_form.html.twig', {'button_label': 'Update'}) }}
+    <style>
+        body {
+            text-align: center;
 
-    <a href="{{ path('app_seance_libre_index') }}">back to list</a>
+        }
+        h1 {
+            text-decoration: underline;
+            color: #000000;
+        }
 
-    {{ include('seance_libre/_delete_form.html.twig') }}
+        input {
+            border: 1px solid black;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: red;
+        }
+
+    </style>
+
+    <h1>Modifier la séance</h1>
+    <br>
+
+    {{ include('seance_libre/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+<br>
+    <a href="{{ path('app_seance_libre_index') }}">Retour à la liste</a>
+
+    <br>
+
 {% endblock %}

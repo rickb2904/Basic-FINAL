@@ -3,47 +3,37 @@
 {% block title %}Nouvelle Activité{% endblock %}
 
 {% block stylesheets %}
-<style>
-    /* Couleurs */
-    body {
-        background-color: mediumpurple;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-        font-family: "Open Sans", arial;
-    }
+    <style>
+        body {
+            text-align: center;
 
-    /* Container */
-    .container {
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 40px;
-        width: 100%;
-        max-width: 400px;
-    }
+        }
+        h1 {
+            text-decoration: underline;
+            color: #000000;
+        }
 
-    h1 {
-        text-decoration: underline;
-        color: #000000;
-        font-size: 32px;
-        margin-bottom: 35px;
-        text-align: center;
-    }
+        input {
+            border: 1px solid black;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
 
-</style>
+        a {
+            color: red;
+        }
+
+    </style>
+
 
 {% endblock %}
 
 {% block body %}
 <div class="container">
     <h1>Nouvelle Activité</h1>
-
+<br>
     {{ include('activite/_form.html.twig') }}
-
+<br>
     <div class="buttons">
         <a class="button-link" href="{{ path('app_activite_index') }}">Retour à la liste d'activités</a>
     </div>

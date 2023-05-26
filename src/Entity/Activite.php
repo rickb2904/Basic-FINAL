@@ -89,4 +89,11 @@ class Activite
 
         return $this;
     }
+    // Dans la classe Activite
+
+    public function __toString()
+    {
+        return $this->nom_activite;
+    }
+
 }

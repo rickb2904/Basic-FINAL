@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SeanceLibreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +34,16 @@ class SeanceLibre
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Activite::class)
+     */
+    private $activites;
+
+    public function __construct()
+    {
+        $this->activites = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,20 +61,16 @@ class SeanceLibre
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user): void
+    public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
     }
 
     public function getNomSeanceLibre(): ?string
@@ -77,4 +85,27 @@ class SeanceLibre
         return $this;
     }
 
+    /**
+     * @return Collection|Activite[]
+     */
+    public function getActivites(): Collection
+    {
+        return $this->activites;
+    }
+
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+        }
+
+        return $this;
+    }
+
+    public function removeActivite(Activite $activite): self
+    {
+        $this->activites->removeElement($activite);
+
+        return $this;
+    }
 }

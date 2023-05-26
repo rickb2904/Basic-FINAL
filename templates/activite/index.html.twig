@@ -74,7 +74,17 @@
                 <td>{{ activite.typeActivite }}</td>
                 <td>{{ activite.nomActivite }}</td>
                 <td>
-                    <a href="{{ path('app_activite_show', {'id': activite.id}) }}">Voir</a>
+
+                    <form method="post" action="{{ path('app_activite_edit', {'id': activite.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('edit' ~ activite.id) }}">
+                        <button class="btn">Modifier</button>
+                    </form>
+                    <br>
+                    <form method="post" action="{{ path('app_activite_delete', {'id': activite.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activite.id) }}">
+                        <button class="btn">Supprimer</button>
+                    </form>
+
                 </td>
             </tr>
         {% else %}
@@ -85,7 +95,7 @@
         <tr>
             <th colspan="5">
                 <a href="{{ path('app_activite_new') }}">
-                    <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls">&nbsp; Nouvelle Séance Collective&nbsp;</button>
+                    <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls">&nbsp; Nouvelle Activité&nbsp;</button>
                 </a>
             </th>
         </tr>
