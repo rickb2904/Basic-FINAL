@@ -20,14 +20,15 @@ class SeanceLibre
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $nb_activite;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nom_seancelibre;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateseancelibre;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="seancelibre")
@@ -49,17 +50,6 @@ class SeanceLibre
         return $this->id;
     }
 
-    public function getNbActivite(): ?int
-    {
-        return $this->nb_activite;
-    }
-
-    public function setNbActivite(int $nb_activite): self
-    {
-        $this->nb_activite = $nb_activite;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -98,7 +88,6 @@ class SeanceLibre
         if (!$this->activites->contains($activite)) {
             $this->activites[] = $activite;
         }
-
         return $this;
     }
 
@@ -108,4 +97,18 @@ class SeanceLibre
 
         return $this;
     }
+
+    public function getDateseancelibre(): ?\DateTimeInterface
+    {
+        return $this->dateseancelibre;
+    }
+
+    public function setDateseancelibre(\DateTimeInterface $dateseancelibre): self
+    {
+        $this->dateseancelibre = $dateseancelibre;
+
+        return $this;
+    }
+
+
 }

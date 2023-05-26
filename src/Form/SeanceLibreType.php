@@ -6,10 +6,12 @@ use App\Entity\Activite;
 use App\Entity\SeanceLibre;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SeanceLibreType extends AbstractType
 {
@@ -20,9 +22,12 @@ class SeanceLibreType extends AbstractType
             ->add('nomSeanceLibre', TextType::class, [
                 'label' => "Nom de la séance libre : ",
             ])
-
-            ->add('nb_activite', IntegerType::class, [
-                'label' => "Nombre de places : ",
+            ->add('dateseancelibre', DateType::class, [
+                'label' => 'Date de la séance libre : ',
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez sélectionner une date.']),
+                ],
+                'data' => new \DateTime(), // Utilise la date du jour par défaut
             ])
 
             ->add('activites', EntityType::class, [
