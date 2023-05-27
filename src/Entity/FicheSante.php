@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FicheSanteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FicheSanteRepository::class)
@@ -29,8 +30,14 @@ class FicheSante
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotNull(message="La date ne peut pas être vide.")
      */
     private $date;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="fichesan")
@@ -82,6 +89,8 @@ class FicheSante
         return $this;
     }
 
+    // Le reste du code de la classe...
+
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -93,5 +102,6 @@ class FicheSante
 
         return $this;
     }
+
 
 }

@@ -3,9 +3,25 @@
 {% block title %}New FicheSante{% endblock %}
 
 {% block body %}
-    <h1>Create new FicheSante</h1>
+    <style>
+        body {
+            text-align: center;
+            color: black;
 
+        }
+        h1 {
+            text-decoration: underline;
+            color: #000000;
+        }
+
+        a {
+            color: red;
+        }
+
+    </style>
+    <h1>Nouvelle Fiche de Santé</h1>
+    <br>
     {{ include('fiche_sante/_form.html.twig') }}
-
-    <a href="{{ path('app_fiche_sante_index') }}">back to list</a>
+    <br>
+    <a href="{{ path('app_fiche_sante_index') }}">Retour à la liste</a>
 {% endblock %}

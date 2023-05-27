@@ -24,7 +24,7 @@
                 <nav>
                     <ul class="flex">
                         <li><a href="{{ path('app_activite_index') }}">Activité</a></li>
-                        <li><a href="{{ path('app_seance_collective_index') }}">Séances</a></li>
+                        <li><a href="{{ path('app_seance_collective_index') }}">Séances Collectives</a></li>
                         <li><a href="{{ url('app_list_users') }}">Les Adhérents</a></li>
 
                         <li id="header-logo" class="top-gym-logo">
@@ -38,6 +38,9 @@
 
                     </ul>
                 </nav>
+                {% if app.user %}
+                    <p style="color: azure">Bienvenue {{ app.user.nom }} {{ app.user.prenom }}</p>
+                {% endif %}
 
                 <button id="hamburger-menu">
                     <span class="strip"></span>
@@ -138,18 +141,14 @@
 
             <div class="membership-cards-box">
                 <div class="inner-container">
-                    <h4>Fiche Santé</h4>
-                    <button>Accéder</button>
+
 
                 </div>
             </div>
 
             <div class="personal-trainer-box">
                 <strong>Emploi du temps </strong>
-                <h4></h4>
-                <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla pretium.Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla pretium.</p>
-                <button>Voir</button>
-            </div>
+                </div>
         </div>
     </section>
 

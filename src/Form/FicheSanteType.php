@@ -35,7 +35,8 @@ class FicheSanteType extends AbstractType
             ->add('date', DateType::class, [
                 'label' => 'Date : ',
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd', // Spécifie le format d'affichage de la date
+                'html5' => false,
+                'format' => 'dd-MM-yyyy', // Spécifie le format d'affichage de la date (jour-mois-année)
                 'data' => new \DateTime(), // Définit la date du jour comme valeur par défaut
                 'disabled' => true, // Désactive le champ pour empêcher la modification
             ]);
