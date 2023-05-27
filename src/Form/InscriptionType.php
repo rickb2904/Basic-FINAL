@@ -16,6 +16,8 @@ class InscriptionType extends AbstractType
             $builder->add('date', DateType::class, [
                 'label' => 'Date : ',
                 'format' => 'dd MMMM yyyy',
+                'data' => new \DateTime(), // Utilise la date du jour par défaut
+
             ])
             ->add('adherent', null, [
                 'label' => 'Adhérent : ',
