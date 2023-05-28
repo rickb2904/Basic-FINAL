@@ -23,9 +23,9 @@ class InscriptionController extends AbstractController
     {
         return $this->render('inscription/index.html.twig', [
             'inscriptions' => $inscriptionRepository->findAll(),
-            'seanceco' => $seanceCollectiveRepository->findAll(),
-
+            'seanceco' => $seanceCollectiveRepository->findBy([], ['nom_seancecollective' => 'ASC']),
         ]);
+
     }
 
     /**
