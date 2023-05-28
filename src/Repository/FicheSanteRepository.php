@@ -21,7 +21,14 @@ class FicheSanteRepository extends ServiceEntityRepository
         parent::__construct($registry, FicheSante::class);
     }
 
-
+    public function findLatest()
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.date', 'DESC') // suppose que vous avez un champ date dans FicheSante
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
     public function add(FicheSante $entity, bool $flush = false): void
     {

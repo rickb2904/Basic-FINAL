@@ -160,14 +160,13 @@
             <div class="inner-container">
                 <center><h4>Fiche Santé</h4>
 
-                {% for fiche in ficheS %}
-                    {% set imc = fiche.poids / (fiche.taille / 100 * fiche.taille / 100) %}
+                    {% set imc = ficheS.poids / (ficheS.taille / 100 * ficheS.taille / 100) %}
                     <p>Nom : {{app.user.nom}}</p>
                     <p>Prenom : {{app.user.prenom}}</p>
-                    <p>Poids  : {{ fiche.poids}} kg</p>
-                    <p>Taille : {{ fiche.taille}} cm</p>
+                    <p>Poids  : {{ ficheS.poids}} kg</p>
+                    <p>Taille : {{ ficheS.taille}} cm</p>
                     <p>IMC : {{ imc }}</p>
-                    <p>Date de création : {{ fiche.date|date('d-m-Y') }}</p>
+                    <p>Date de création : {{ ficheS.date|date('d-m-Y') }}</p>
 
                     {% if imc > 25 %}
                         <p style="color: red">Faites attention, votre IMC indique une obésité morbide (LOIC)</p>
@@ -176,7 +175,6 @@
                     {% else %}
                         <p style="color: #03ad06">Votre IMC est dans la plage normale</p>
                     {% endif %}
-                {% endfor %}
                 </center>
 
             </div>

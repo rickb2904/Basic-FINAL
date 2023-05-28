@@ -71,17 +71,19 @@ class UserController extends AbstractController
      */
     public function adherent(UserRepository $userRepository, FicheSanteRepository $ficheSanteRepository): Response
     {
-
-
         // Récupère les utilisateurs ayant le rôle "adherent" depuis le repository
         $users = $userRepository->findBy(['role' => 'adherent']);
 
-        // Rend la vue 'adherent/index.html.twig' avec les utilisateurs et les fiches de santé passés en paramètre
+        // Récupère la fiche de santé la plus récente
+        $latestFicheSante = $ficheSanteRepository->findLatest();
+
+        // Rend la vue 'adherent/index.html.twig' avec les utilisateurs et la dernière fiche de santé
         return $this->render('adherent/index.html.twig', [
             'users' => $users,
-            'ficheS' => $ficheSanteRepository->findAll(),
+            'ficheS' => $latestFicheSante,
         ]);
     }
+
 
     /**
      * @Route("/coach", name="app_coach")
