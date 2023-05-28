@@ -3,9 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Inscription;
+use App\Entity\User;
+use App\Entity\SeanceCollective;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
@@ -23,24 +24,20 @@ class InscriptionType extends AbstractType
     {
         $user = $this->security->getUser();
 
-        $builder->add('date', DateTimeType::class, [
-            'label' => 'Date et heure : ',
-            'date_format' => 'dd MMMM yyyy',
-            'date_widget' => 'choice',
-            'time_widget' => 'choice',
-            'data' => new \DateTime(), // Utilise la date et l'heure actuelles par défaut
-        ])
-
-            ->add('adherent', null, [
+        $builder
+            ->add('adherent', EntityType::class, [
                 'label' => 'Adhérent : ',
-                'disabled' => true, // Désactive le champ pour empêcher la modification
-                'data' => $user,  // Pass the User object, not the email
+                'class' => User::class,
+                'data' => $user, // Set the currently logged in user
+                'choice_label' => 'email',
+                'disabled' => true,
             ])
-            ->add('seancecollective', null, [
+            ->add('seancecollective', EntityType::class, [
                 'label' => 'Choisir la séance collective : ',
+                'class' => SeanceCollective::class,
+                'choice_label' => 'nomSeanceCollective', // change this with the proper field of SeanceCollective
             ]);
     }
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {

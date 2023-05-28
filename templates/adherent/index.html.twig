@@ -158,24 +158,30 @@
 
         <div class="membership-cards-box">
             <div class="inner-container">
-                <center><h4>Fiche Santé</h4>
+                <center>
+                    <h4>Fiche Santé</h4>
 
-                    {% set imc = ficheS.poids / (ficheS.taille / 100 * ficheS.taille / 100) %}
-                    <p>Nom : {{app.user.nom}}</p>
-                    <p>Prenom : {{app.user.prenom}}</p>
-                    <p>Poids  : {{ ficheS.poids}} kg</p>
-                    <p>Taille : {{ ficheS.taille}} cm</p>
-                    <p>IMC : {{ imc }}</p>
-                    <p>Date de création : {{ ficheS.date|date('d-m-Y') }}</p>
+                    {% if ficheS is not null %}
+                        {% set imc = ficheS.poids / (ficheS.taille / 100 * ficheS.taille / 100) %}
+                        <p>Nom : {{app.user.nom}}</p>
+                        <p>Prenom : {{app.user.prenom}}</p>
+                        <p>Poids  : {{ ficheS.poids }} kg</p>
+                        <p>Taille : {{ ficheS.taille }} cm</p>
+                        <p>IMC : {{ imc }}</p>
+                        <p>Date de création : {{ ficheS.date|date('d-m-Y') }}</p>
 
-                    {% if imc > 25 %}
-                        <p style="color: red">Faites attention, votre IMC indique une obésité morbide (LOIC)</p>
-                    {% elseif imc < 18 %}
-                        <p style="color: orange">Votre IMC est trop bas</p>
+                        {% if imc > 25 %}
+                            <p style="color: red">Faites attention, votre IMC indique une obésité morbide (LOIC)</p>
+                        {% elseif imc < 18 %}
+                            <p style="color: orange">Votre IMC est trop bas</p>
+                        {% else %}
+                            <p style="color: #03ad06">Votre IMC est dans la plage normale</p>
+                        {% endif %}
                     {% else %}
-                        <p style="color: #03ad06">Votre IMC est dans la plage normale</p>
+                        <p>Aucune fiche santé disponible</p>
                     {% endif %}
                 </center>
+
 
             </div>
         </div>

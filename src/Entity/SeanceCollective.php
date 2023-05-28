@@ -25,6 +25,11 @@ class SeanceCollective
     private $nb_place;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $datecollective;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nom_seancecollective;
@@ -58,6 +63,19 @@ class SeanceCollective
     public function setNbPlace(int $nb_place): self
     {
         $this->nb_place = $nb_place;
+
+        return $this;
+    }
+
+
+    public function getDatecollective(): ?\DateTimeInterface
+    {
+        return $this->datecollective;
+    }
+
+    public function setDatecollective(\DateTimeInterface $datecollective): self
+    {
+        $this->datecollective = $datecollective;
 
         return $this;
     }

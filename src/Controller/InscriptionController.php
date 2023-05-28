@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Inscription;
 use App\Form\InscriptionType;
 use App\Repository\InscriptionRepository;
+use App\Repository\SeanceCollectiveRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class InscriptionController extends AbstractController
     /**
      * @Route("/", name="app_inscription_index", methods={"GET"})
      */
-    public function index(InscriptionRepository $inscriptionRepository): Response
+    public function index(InscriptionRepository $inscriptionRepository, SeanceCollectiveRepository $seanceCollectiveRepository): Response
     {
         return $this->render('inscription/index.html.twig', [
             'inscriptions' => $inscriptionRepository->findAll(),
+            'seanceco' => $seanceCollectiveRepository->findAll(),
+
         ]);
     }
 

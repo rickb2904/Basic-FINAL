@@ -17,10 +17,6 @@ class Inscription
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inscriptions")
@@ -37,17 +33,6 @@ class Inscription
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
 
     public function getAdherent(): ?User
     {
