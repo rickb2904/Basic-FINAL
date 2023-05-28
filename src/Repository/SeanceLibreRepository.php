@@ -29,6 +29,19 @@ class SeanceLibreRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function searchSeanceLibre(string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+
+        $queryBuilder->where(
+            $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('u.nom_seancelibre', ':search'),
+            )
+        )
+            ->setParameter('search', '%' . $search . '%');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 
     public function remove(SeanceLibre $entity, bool $flush = false): void
     {

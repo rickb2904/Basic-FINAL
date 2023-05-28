@@ -29,6 +29,19 @@ class SeanceCollectiveRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function searchSeanceCollective(string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+
+        $queryBuilder->where(
+            $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('u.nom_seancecollective', ':search'),
+            )
+        )
+            ->setParameter('search', '%' . $search . '%');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 
     public function remove(SeanceCollective $entity, bool $flush = false): void
     {

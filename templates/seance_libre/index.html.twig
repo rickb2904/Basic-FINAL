@@ -1,153 +1,123 @@
-    {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-    {% block title %}SeanceLibre index{% endblock %}
+{% block title %}SeanceLibre index{% endblock %}
 
-    {% block body %}
+{% block body %}
 
+    <style>
+        a {
+            text-decoration: none;
+            color: #1b1e24;
+        }
+        body {
+            font-family: "Open Sans", arial;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            height: 320px;
+            border-collapse: collapse;
+            border: 1px solid #000000;
+            margin: 50px auto;
+            background: white;
+        }
+        th {
+            background: #aa24c0;
+            height: 54px;
+            width: 25%;
+            font-weight: lighter;
+            color: white;
+            box-shadow: inset 1px 1px 1px #000000;
+            transition: all 0.2s;
+        }
+        tr {
+            border-bottom: 1px solid #000000;
+        }
+        tr:last-child {
+            border-bottom: 0px;
+        }
+        td {
+            border-right: 1px solid #090909;
+            padding: 10px;
+            transition: all 0.2s;
+        }
+        td input {
+            font-size: 14px;
+            background: none;
+            outline: none;
+            border: 0;
+            display: table-cell;
+            height: 100%;
+            width: 100%;
+        }
+        h1 {
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text-decoration: underline;
+        }
+    </style>
 
-        <style>
-    a {
-        text-decoration: none;
-        color: #1b1e24;
-    }
-            body {
-                font-family: "Open Sans", arial;
-                text-align: center;
-            }
-            table {
-                width: 100%;
-                max-width: 600px;
-                height: 320px;
-                border-collapse: collapse;
-                border: 1px solid #000000;
-                margin: 50px auto;
-                background: white;
-            }
-            th {
-                background: #aa24c0;
-                height: 54px;
-                width: 25%;
-                font-weight: lighter;
-                color: white;
-                box-shadow: inset 1px 1px 1px #000000;
-                transition: all 0.2s;
-            }
-            tr {
-                border-bottom: 1px solid #000000;
-            }
-            tr:last-child {
-                border-bottom: 0px;
-            }
-            td {
-                border-right: 1px solid #090909;
-                padding: 10px;
-                transition: all 0.2s;
-            }
-
-            td input {
-                font-size: 14px;
-                background: none;
-                outline: none;
-                border: 0;
-                display: table-cell;
-                height: 100%;
-                width: 100%;
-            }
-            h1 {
-                text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                text-decoration: underline;
-            }
-        </style>
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-
-
-                    <h1>Liste Séance Libre</h1>
-
-                    <table class="table">
-
-                        <thead>
-                        <tr>
-                            <th>Nom de la séance</th>
-                            <th>Date</th>
-                            <th>Heure</th>
-                            <th>Activité</th>
-
-
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        {% for seance_libre in seance_libres %}
-                            <tr>
-                                <td>{{ seance_libre.nomSeanceLibre }}</td>
-                                <td>{{  seance_libre.dateseancelibre ? seance_libre.dateseancelibre|date('d-m-Y') : '' }}</td>
-                                <td>{{ seance_libre.dateseancelibre ? seance_libre.dateseancelibre|date('H:i') : '' }}</td>
-
-                                <td>
-                                    {% for activite in seance_libre.activites %}
-                                        {{ activite.nomActivite }}
-                                        {% if not loop.last %}, {% endif %}
-                                    {% endfor %}
-                                </td>
-                                <td>
-
-                                    <form method="post" action="{{ path('app_seance_libre_edit', {'id': seance_libre.id}) }}">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('edit' ~ seance_libre.id) }}">
-                                        <button class="btn">Modifier</button>
-                                    </form>
-
-                                    <br>
-                                    <form method="post" action="{{ path('app_seance_libre_delete', {'id': seance_libre.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ seance_libre.id) }}">
-                                        <button class="btn">Supprimer</button>
-                                    </form>
-
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="3">Aucune séance enregistrée</td>
-                            </tr>
-                        {% endfor %}
-
-                        <tr>
-                            <th colspan="5">
-                                <a href="{{ path('app_seance_libre_new') }}">
-                                    <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls">&nbsp; Nouvelle Séance&nbsp;</button>
-                                </a>
-                            </th>
-                        </tr>
-                        </tbody>
-                    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Liste Séance Libre</h1>
+                <div class="search-form">
+                    <form method="GET" action="{{ path('app_seance_libre_index') }}">
+                        <input type="text" name="search" placeholder="Rechercher une séance..." value="{{ search }}" />
+                        <button type="submit">Rechercher</button>
+                    </form>
                 </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom de la séance</th>
+                        <th>Date</th>
+                        <th>Heure</th>
+                        <th>Activité</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for seance_libre in seance_libres %}
+                        <tr>
+                            <td>{{ seance_libre.nomSeanceLibre }}</td>
+                            <td>{{ seance_libre.dateseancelibre ? seance_libre.dateseancelibre|date('d-m-Y') : '' }}</td>
+                            <td>{{ seance_libre.dateseancelibre ? seance_libre.dateseancelibre|date('H:i') : '' }}</td>
+                            <td>
+                                {% for activite in seance_libre.activites %}
+                                    {{ activite.nomActivite }}
+                                    {% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <form method="post" action="{{ path('app_seance_libre_edit', {'id': seance_libre.id}) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('edit' ~ seance_libre.id) }}">
+                                    <button class="btn">Modifier</button>
+                                </form>
+                                <br>
+                                <form method="post" action="{{ path('app_seance_libre_delete', {'id': seance_libre.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ seance_libre.id) }}">
+                                    <button class="btn">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Aucune séance enregistrée</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="5">
+                            <a href="{{ path('app_seance_libre_new') }}">
+                                <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls">&nbsp; Nouvelle Séance&nbsp;</button>
+                            </a>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-                    {% endblock %}
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\SeanceCollective;
 use App\Form\SeanceCollectiveType;
 use App\Repository\SeanceCollectiveRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,12 +19,23 @@ class SeanceCollectiveController extends AbstractController
     /**
      * @Route("/", name="app_seance_collective_index", methods={"GET"})
      */
-    public function index(SeanceCollectiveRepository $seanceCollectiveRepository): Response
+    public function index(SeanceCollectiveRepository $seanceCollectiveRepository, Request $request): Response
     {
+        $search = $request->query->get('search');
+
+        // Si une recherche est effectuée
+        if ($search) {
+            $seances = $seanceCollectiveRepository->searchSeanceCollective($search);
+        } else {
+            $seances = $seanceCollectiveRepository->findAll();
+        }
+
         return $this->render('seance_collective/index.html.twig', [
-            'seance_collectives' => $seanceCollectiveRepository->findAll(),
+            'seance_collectives' => $seances,
+            'search' => $search,
         ]);
     }
+
 
     /**
      * @Route("/new", name="app_seance_collective_new", methods={"GET", "POST"})

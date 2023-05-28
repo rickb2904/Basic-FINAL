@@ -18,10 +18,22 @@ class SeanceLibreController extends AbstractController
     /**
      * @Route("/", name="app_seance_libre_index", methods={"GET"})
      */
-    public function index(SeanceLibreRepository $seanceLibreRepository): Response
+    public function index(SeanceLibreRepository $seanceLibreRepository, Request $request): Response
     {
+
+        $search = $request->query->get('search');
+
+        // Si une recherche est effectuée
+        if ($search) {
+            $seances = $seanceLibreRepository->searchSeanceLibre($search);
+        } else {
+            $seances = $seanceLibreRepository->findAll();
+        }
+
         return $this->render('seance_libre/index.html.twig', [
-            'seance_libres' => $seanceLibreRepository->findAll(),
+            'seance_libres' => $seances,
+            'search' => $search,
+
         ]);
     }
 

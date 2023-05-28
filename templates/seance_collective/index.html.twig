@@ -57,6 +57,22 @@
             text-align: center;
             text-decoration: underline;
         }
+        .search-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-form input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        .search-form button {
+            padding: 5px 10px;
+            background-color: #aa24c0;
+            color: white;
+            border: none;
+        }
     </style>
 
     <div class="container">
@@ -64,7 +80,12 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h1 class="text-center">Liste Séances Collectives</h1>
-
+                <div class="search-form">
+                    <form method="GET" action="{{ path('app_seance_collective_index') }}">
+                        <input type="text" name="search" placeholder="Rechercher une séance..." value="{{ search }}" />
+                        <button type="submit">Rechercher</button>
+                    </form>
+                </div>
                 <table class="table">
                     <thead>
                     <tr>
@@ -96,13 +117,13 @@
                             <td colspan="3">Aucune séance enregistrée</td>
                         </tr>
                     {% endfor %}
-                        <tr>
-                            <th colspan="5">
-                                <a href="{{ path('app_seance_collective_new') }}">
+                    <tr>
+                        <th colspan="5">
+                            <a href="{{ path('app_seance_collective_new') }}">
                                 <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls">&nbsp; Nouvelle Séance Collective&nbsp;</button>
-                                </a>
-                            </th>
-                        </tr>
+                            </a>
+                        </th>
+                    </tr>
                     </tbody>
                 </table>
             </div>
