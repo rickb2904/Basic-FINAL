@@ -42,6 +42,39 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
+    public function searchAdherents(string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+
+        $queryBuilder->where(
+            $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('u.nom', ':search'),
+                $queryBuilder->expr()->like('u.prenom', ':search'),
+                $queryBuilder->expr()->like('u.email', ':search')
+            )
+        )
+            ->setParameter('search', '%' . $search . '%');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function searchCoachs(string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+
+        $queryBuilder->where(
+            $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('u.nom', ':search'),
+                $queryBuilder->expr()->like('u.prenom', ':search'),
+                $queryBuilder->expr()->like('u.email', ':search')
+            )
+        )
+            ->setParameter('search', '%' . $search . '%');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

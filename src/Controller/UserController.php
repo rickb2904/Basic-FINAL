@@ -38,31 +38,45 @@ class UserController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/listusers", name="app_list_users")
      */
-    public function listeUtilisateurs(UserRepository $userRepository): Response
+    public function listeUtilisateurs(Request $request, UserRepository $userRepository): Response
     {
-        // Récupère tous les utilisateurs depuis le repository
-        $users = $userRepository->findAll();
+        $search = $request->query->get('search');
 
-        // Rend la vue 'adherent/list.html.twig' avec les utilisateurs passés en paramètre
+        // Si une recherche est effectuée
+        if ($search) {
+            $users = $userRepository->searchAdherents($search);
+        } else {
+            $users = $userRepository->findAll();
+        }
+
         return $this->render('adherent/list.html.twig', [
-            'users' => $users,
+            'users' => $users, // Les utilisateurs correspondants à la recherche
+            'search' => $search, // La valeur de recherche pour l'afficher dans la vue
         ]);
+
     }
+
 
     /**
      * @Route("/listusers2", name="app_list_users2")
      */
-    public function listeUtilisateurs2(UserRepository $userRepository): Response
+    public function listeCoachs(Request $request, UserRepository $userRepository): Response
     {
-        // Récupère tous les utilisateurs depuis le repository
-        $users = $userRepository->findAll();
+        $search = $request->query->get('search');
 
-        // Rend la vue 'coach/list.html.twig' avec les utilisateurs passés en paramètre
+        if ($search) {
+            $users = $userRepository->searchCoachs($search);
+        } else {
+            $users = $userRepository->findAll();
+        }
+
         return $this->render('coach/list.html.twig', [
             'users' => $users,
+            'search' => $search,
         ]);
     }
 

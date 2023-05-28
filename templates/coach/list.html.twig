@@ -57,23 +57,39 @@
             text-align: center;
             text-decoration: underline;
         }
+        .no-results {
+            margin-top: 20px;
+            text-align: center;
+            color: red;
+        }
     </style>
     <h1>Liste des Coachs</h1>
 
+    <div class="search-form">
+        <form method="GET" action="{{ path('app_list_users2') }}">
+            <input type="text" name="search" placeholder="Rechercher un coach..." value="{{ search }}" />
+            <button type="submit">Rechercher</button>
+        </form>
+    </div>
+
     <table class="table">
         <thead>
-            <tr>
-                <th>N°</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>E-Mail</th>
-                <th>Rôle</th>
-            </tr>
+        <tr>
+            <th>N°</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>E-Mail</th>
+            <th>Rôle</th>
+        </tr>
         </thead>
 
         <tbody>
-        {% for user in users %}
-            {% if 'ROLE_COACH' in user.roles %}
+        {% if users is empty %}
+            <tr>
+                <td colspan="5" class="no-results">Aucun résultat trouvé</td>
+            </tr>
+        {% else %}
+            {% for user in users %}
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.nom }}</td>
@@ -81,12 +97,8 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
                 </tr>
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
         </tbody>
     </table>
-
-
-
-
 {% endblock %}

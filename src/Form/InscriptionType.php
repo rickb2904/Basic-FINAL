@@ -32,10 +32,11 @@ class InscriptionType extends AbstractType
                 'choice_label' => 'email',
                 'disabled' => true,
             ])
+
             ->add('seancecollective', EntityType::class, [
                 'label' => 'Choisir la séance collective : ',
                 'class' => SeanceCollective::class,
-                'choice_label' => 'nomSeanceCollective', // change this with the proper field of SeanceCollective
+                'choice_label' => 'nomSeanceCollective',
             ]);
     }
 
