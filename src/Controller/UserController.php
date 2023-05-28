@@ -71,6 +71,8 @@ class UserController extends AbstractController
      */
     public function adherent(UserRepository $userRepository, FicheSanteRepository $ficheSanteRepository): Response
     {
+
+
         // Récupère les utilisateurs ayant le rôle "adherent" depuis le repository
         $users = $userRepository->findBy(['role' => 'adherent']);
 

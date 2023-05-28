@@ -73,8 +73,10 @@
                         <thead>
                         <tr>
                             <th>Nom de la séance</th>
-                            <th>Activité</th>
                             <th>Date</th>
+                            <th>Heure</th>
+                            <th>Activité</th>
+
 
                             <th>Actions</th>
                         </tr>
@@ -84,7 +86,8 @@
                         {% for seance_libre in seance_libres %}
                             <tr>
                                 <td>{{ seance_libre.nomSeanceLibre }}</td>
-                                <td>{{ seance_libre.dateseancelibre|date('d/m/Y') }}</td>
+                                <td>{{  seance_libre.dateseancelibre ? seance_libre.dateseancelibre|date('d-m-Y') : '' }}</td>
+                                <td>{{ seance_libre.dateseancelibre ? seance_libre.dateseancelibre|date('H:i') : '' }}</td>
 
                                 <td>
                                     {% for activite in seance_libre.activites %}

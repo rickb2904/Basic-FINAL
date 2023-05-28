@@ -70,16 +70,19 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Cours n°</th>
-                        <th>Date de la séance</th>
+
+                        <th>Date</th>
+                        <th>Heure</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for inscription in inscriptions %}
                         <tr>
-                            <td>{{ inscription.id }}</td>
+
                             <td>{{ inscription.date ? inscription.date|date('d-m-Y') : '' }}</td>
+                            <td>{{ inscription.date ? inscription.date|date('H:i') : '' }}</td>
+
                             <td>
                                 <form method="post" action="{{ path('app_inscription_edit', {'id': inscription.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir modifier cet élément ?');">
                                     <input type="hidden" name="_token" value="{{ csrf_token('modifier' ~ inscription.id) }}">

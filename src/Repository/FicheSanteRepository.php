@@ -21,6 +21,8 @@ class FicheSanteRepository extends ServiceEntityRepository
         parent::__construct($registry, FicheSante::class);
     }
 
+
+
     public function add(FicheSante $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

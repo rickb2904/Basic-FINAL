@@ -25,7 +25,7 @@ class SeanceLibre
     private $nom_seancelibre;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateseancelibre;
 
