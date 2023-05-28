@@ -18,10 +18,20 @@ class ActiviteController extends AbstractController
     /**
      * @Route("/", name="app_activite_index", methods={"GET"})
      */
-    public function index(ActiviteRepository $activiteRepository): Response
+    public function index(ActiviteRepository $activiteRepository,  Request $request): Response
     {
+        $search = $request->query->get('search');
+
+        // Si une recherche est effectuée
+        if ($search) {
+            $activite = $activiteRepository->searchActivite($search);
+        } else {
+            $activite = $activiteRepository->findAll();
+        }
+
         return $this->render('activite/index.html.twig', [
-            'activites' => $activiteRepository->findAll(),
+            'activites' => $activite,
+            'search' => $search,
         ]);
     }
 

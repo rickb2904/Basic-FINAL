@@ -30,6 +30,21 @@ class ActiviteRepository extends ServiceEntityRepository
         }
     }
 
+    public function searchActivite(string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+
+        $queryBuilder->where(
+            $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('u.nom_activite', ':search'),
+            )
+        )
+            ->setParameter('search', '%' . $search . '%');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
     public function remove(Activite $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

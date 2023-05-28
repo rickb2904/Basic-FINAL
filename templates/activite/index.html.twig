@@ -4,7 +4,7 @@
 
 {% block body %}
     <style>
-        a{
+        a {
             text-decoration: none;
             color: #1b1e24;
         }
@@ -13,6 +13,7 @@
             font-family: "Open Sans", arial;
             text-align: center;
         }
+
         table {
             width: 100%;
             max-width: 600px;
@@ -22,6 +23,7 @@
             margin: 50px auto;
             background: white;
         }
+
         th {
             background: #aa24c0;
             height: 54px;
@@ -31,12 +33,15 @@
             box-shadow: inset 1px 1px 1px #000000;
             transition: all 0.2s;
         }
+
         tr {
             border-bottom: 1px solid #000000;
         }
+
         tr:last-child {
             border-bottom: 0px;
         }
+
         td {
             border-right: 1px solid #090909;
             padding: 10px;
@@ -52,21 +57,46 @@
             height: 100%;
             width: 100%;
         }
+
         h1 {
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
             text-decoration: underline;
         }
+
+        .search-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-form input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        .search-form button {
+            padding: 5px 10px;
+            background-color: #aa24c0;
+            color: white;
+            border: none;
+        }
     </style>
     <h1>Liste des Activités</h1>
 
+    <div class="search-form">
+        <form method="GET" action="{{ path('app_activite_index') }}">
+            <input type="text" name="search" placeholder="Rechercher une activité..." value="{{ search }}" />
+            <button type="submit">Rechercher</button>
+        </form>
+    </div>
+
     <table class="table">
         <thead>
-            <tr>
-                <th>Type d'activité</th>
-                <th>Nom de l'activité</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Type d'activité</th>
+            <th>Nom de l'activité</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for activite in activites %}
@@ -74,7 +104,6 @@
                 <td>{{ activite.typeActivite }}</td>
                 <td>{{ activite.nomActivite }}</td>
                 <td>
-
                     <form method="post" action="{{ path('app_activite_edit', {'id': activite.id}) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token('edit' ~ activite.id) }}">
                         <button class="btn">Modifier</button>
@@ -84,16 +113,15 @@
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activite.id) }}">
                         <button class="btn">Supprimer</button>
                     </form>
-
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">Aucune séance enregistrée</td>
+                <td colspan="3">Aucune activité enregistrée</td>
             </tr>
         {% endfor %}
         <tr>
-            <th colspan="5">
+            <th colspan="3">
                 <a href="{{ path('app_activite_new') }}">
                     <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls">&nbsp; Nouvelle Activité&nbsp;</button>
                 </a>
