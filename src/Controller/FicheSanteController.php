@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\FicheSante;
+use App\Entity\User;
 use App\Form\FicheSanteType;
 use App\Repository\FicheSanteRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/fiche/sante")
@@ -28,14 +31,16 @@ class FicheSanteController extends AbstractController
     /**
      * @Route("/new", name="app_fiche_sante_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, FicheSanteRepository $ficheSanteRepository): Response
+    public function new(Request $request, FicheSanteRepository $ficheSanteRepository,UserInterface $user): Response
     {
         $ficheSante = new FicheSante();
         $form = $this->createForm(FicheSanteType::class, $ficheSante);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ficheSante->setUser($user);
             $ficheSanteRepository->add($ficheSante, true);
+
 
             return $this->redirectToRoute('app_fiche_sante_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -48,11 +53,13 @@ class FicheSanteController extends AbstractController
 
     /**
      * @Route("/{id}", name="app_fiche_sante_show", methods={"GET"})
+     *
      */
-    public function show(FicheSante $ficheSante): Response
+    public function show(User $user): Response
     {
+
         return $this->render('fiche_sante/show.html.twig', [
-            'fiche_sante' => $ficheSante,
+            'fiche_sante' => $user->getFichesan(),
         ]);
     }
 
