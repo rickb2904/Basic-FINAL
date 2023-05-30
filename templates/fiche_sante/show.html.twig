@@ -6,29 +6,32 @@
     <h1>FicheSante</h1>
 
     <table class="table">
+
         <tbody>
+        {% for fiche in fiche_sante %}
             <tr>
                 <th>Id</th>
-                <td>{{ fiche_sante.id }}</td>
+                <td>{{ fiche.id }}</td>
             </tr>
             <tr>
                 <th>Poids</th>
-                <td>{{ fiche_sante.poids }}</td>
+                <td>{{ fiche.poids }}</td>
             </tr>
             <tr>
                 <th>Taille</th>
-                <td>{{ fiche_sante.taille }}</td>
+                <td>{{ fiche.taille }}</td>
             </tr>
             <tr>
                 <th>Date</th>
-                <td>{{ fiche_sante.date ? fiche_sante.date|date('Y-m-d') : '' }}</td>
+                <td>{{ fiche.date ? fiche.date|date('Y-m-d') : '' }}</td>
             </tr>
+        {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_fiche_sante_index') }}">Retour à la liste</a>
+{#    <a href="{{ path('app_fiche_sante_index') }}">Retour à la liste</a>#}
 
-    <a href="{{ path('app_fiche_sante_edit', {'id': fiche_sante.id}) }}">Modifier</a>
+{#    <a href="{{ path('app_fiche_sante_edit', {'id': fiche_sante.id}) }}">Modifier</a>#}
 
-    {{ include('fiche_sante/_delete_form.html.twig') }}
+{#    {{ include('fiche_sante/_delete_form.html.twig') }}#}
 {% endblock %}

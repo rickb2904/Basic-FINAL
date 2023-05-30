@@ -40,7 +40,7 @@ class FicheSante
     }
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="fichesan")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="fichesan")
      */
     private $user;
 
@@ -59,6 +59,8 @@ class FicheSante
     {
         $this->user = $user;
     }
+
+
 
     public function getId(): ?int
     {
