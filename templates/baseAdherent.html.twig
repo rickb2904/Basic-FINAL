@@ -15,6 +15,7 @@
 </head>
 <style>
     @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
     body{
         margin:0px;
     }
@@ -359,19 +360,16 @@
         #cssmenu .submenu-button.submenu-opened:before {
             display: none;
         }
-
-
     }
 </style>
 <header>
     <div id='cssmenu'>
         <ul>
-            <li><a href="{{ path('app_coach') }}">Accueil</a></li>
-            <li><a href="{{ path('app_activite_index') }}">Activité</a></li>
-            <li><a href="{{ path('app_seance_collective_index') }}">Séances Collectives</a></li>
+            <li><a href="{{ path('app_adherent') }}">Accueil</a></li>
+            <li><a href="{{ path('app_seance_libre_index') }}">Séance Libre</a></li>
+            <li><a href="{{ path('app_inscription_index') }}">Séance Collective</a></li>
 
-            <li><a href="{{ url('app_list_users') }}">Les Adhérents</a></li>
-            <li><a href="{{ path('registration_coach') }}">Nouveau Coach</a></li>
+            <li><a href="{{ path('app_fiche_sante_index') }}">Fiche Santé</a></li>
 
         </ul>
     </div>
