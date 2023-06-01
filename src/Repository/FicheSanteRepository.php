@@ -24,10 +24,10 @@ class FicheSanteRepository extends ServiceEntityRepository
     public function findLatest()
     {
         return $this->createQueryBuilder('f')
-            ->orderBy('f.date', 'DESC') // Tri descendant pour obtenir la fiche la plus récente
+            ->orderBy('f.date', 'ASC') // suppose que vous avez un champ date dans FicheSante
             ->setMaxResults(1)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getSingleResult();
     }
 
     public function add(FicheSante $entity, bool $flush = false): void
