@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserTypeCoach;
 use App\Form\UserTypeAdherent;
 use App\Repository\FicheSanteRepository;
+use App\Repository\InscriptionRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,7 +103,7 @@ class UserController extends AbstractController
     /**
      * @Route("/coach", name="app_coach")
      */
-    public function coach(): Response
+    public function coach(InscriptionRepository $inscriptionRepository): Response
     {
         // Récupère le repository des utilisateurs
         $userRepository = $this->getDoctrine()->getRepository(User::class);
@@ -113,6 +114,7 @@ class UserController extends AbstractController
         // Rend la vue 'coach/index.html.twig' avec les utilisateurs passés en paramètre
         return $this->render('coach/index.html.twig', [
             'users' => $users,
+            'inscription'=>$inscriptionRepository,
         ]);
     }
 

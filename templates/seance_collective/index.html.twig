@@ -4,7 +4,7 @@
 {% block body %}
 
     <style>
-        a{
+        a {
             text-decoration: none;
             color: #1b1e24;
         }
@@ -13,6 +13,7 @@
             font-family: "Open Sans", arial;
             text-align: center;
         }
+
         table {
             width: 100%;
             max-width: 600px;
@@ -22,6 +23,7 @@
             margin: 50px auto;
             background: white;
         }
+
         th {
             background: #aa24c0;
             height: 54px;
@@ -31,12 +33,15 @@
             box-shadow: inset 1px 1px 1px #000000;
             transition: all 0.2s;
         }
+
         tr {
             border-bottom: 1px solid #000000;
         }
+
         tr:last-child {
             border-bottom: 0px;
         }
+
         td {
             border-right: 1px solid #090909;
             padding: 10px;
@@ -52,11 +57,13 @@
             height: 100%;
             width: 100%;
         }
+
         h1 {
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
             text-decoration: underline;
         }
+
         .search-form {
             margin-bottom: 20px;
             text-align: center;
@@ -82,7 +89,7 @@
                 <h1 class="text-center">Liste Séances Collectives</h1>
                 <div class="search-form">
                     <form method="GET" action="{{ path('app_seance_collective_index') }}">
-                        <input type="text" name="search" placeholder="Rechercher une séance..." value="{{ search }}" />
+                        <input type="text" name="search" placeholder="Rechercher une séance..." value="{{ search }}"/>
                         <button type="submit">Rechercher</button>
                     </form>
                 </div>
@@ -90,6 +97,7 @@
                     <thead>
                     <tr>
                         <th>Nom de la séance</th>
+                        <th>Inscris a la séance</th>
                         <th>Nombre de places</th>
                         <th>Actions</th>
                     </tr>
@@ -98,15 +106,26 @@
                     {% for seance_collective in seance_collectives %}
                         <tr>
                             <td>{{ seance_collective.nomSeanceCollective }}</td>
+                            <td>
+                                <ul>{% for inscription in seance_collective.inscriptions %}
+                                        <li>{{ inscription.adherent }}</li>
+                                    {% endfor %}</ul>
+                            </td>
                             <td>{{ seance_collective.nbPlace }}</td>
                             <td>
-                                <form method="post" action="{{ path('app_seance_collective_edit', {'id': seance_collective.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir modifier cet élément ?');">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('modifier' ~ seance_collective.id) }}">
+                                <form method="post"
+                                      action="{{ path('app_seance_collective_edit', {'id': seance_collective.id}) }}"
+                                      onsubmit="return confirm('Êtes-vous sûr(e) de vouloir modifier cet élément ?');">
+                                    <input type="hidden" name="_token"
+                                           value="{{ csrf_token('modifier' ~ seance_collective.id) }}">
                                     <button class="btn">Modifier</button>
                                 </form>
                                 <br>
-                                <form method="post" action="{{ path('app_seance_collective_delete', {'id': seance_collective.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cet élément ?');">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ seance_collective.id) }}">
+                                <form method="post"
+                                      action="{{ path('app_seance_collective_delete', {'id': seance_collective.id}) }}"
+                                      onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cet élément ?');">
+                                    <input type="hidden" name="_token"
+                                           value="{{ csrf_token('delete' ~ seance_collective.id) }}">
                                     <button class="btn">Supprimer</button>
                                 </form>
 
@@ -120,7 +139,9 @@
                     <tr>
                         <th colspan="5">
                             <a href="{{ path('app_seance_collective_new') }}">
-                                <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip" data-original-title="Add more controls">&nbsp; Nouvelle Séance Collective&nbsp;</button>
+                                <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip"
+                                        data-original-title="Add more controls">&nbsp; Nouvelle Séance Collective&nbsp;
+                                </button>
                             </a>
                         </th>
                     </tr>

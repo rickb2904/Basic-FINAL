@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Inscription;
+use App\Entity\User;
 use App\Form\InscriptionType;
 use App\Repository\InscriptionRepository;
 use App\Repository\SeanceCollectiveRepository;
@@ -20,11 +21,10 @@ class InscriptionController extends AbstractController
     /**
      * @Route("/", name="app_inscription_index", methods={"GET"})
      */
-    public function index(InscriptionRepository $inscriptionRepository, SeanceCollectiveRepository $seanceCollectiveRepository): Response
+    public function index(InscriptionRepository $inscriptionRepository,UserInterface $user): Response
     {
         return $this->render('inscription/index.html.twig', [
-            'inscriptions' => $inscriptionRepository->findAll(),
-            'seanceco' => $seanceCollectiveRepository->findBy([], ['nom_seancecollective' => 'ASC']),
+            'inscriptions' => $inscriptionRepository->findBy(['adherent'=>$user]),
         ]);
 
     }
