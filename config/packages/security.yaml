@@ -41,8 +41,8 @@ security:
         - { path: ^/activite, roles: [ROLE_COACH] }
         - { path: ^/seance/collective, roles: [ROLE_COACH] }
         - { path: ^/listusers, roles: [ROLE_COACH] }
-        - { path: ^/registration/coach, roles: [ROLE_COACH] }
-        - { path: ^/registration/adherent, roles: [ROLE_COACH] }
+        #- { path: ^/registration/coach, roles: [ROLE_COACH] }
+        #- { path: ^/registration/adherent, roles: [ROLE_COACH] }
 
 
 when@test:

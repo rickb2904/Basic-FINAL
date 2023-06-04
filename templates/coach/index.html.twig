@@ -24,13 +24,14 @@
                 <nav>
                     <ul class="flex">
                         <li><a href="{{ path('app_activite_index') }}">Activité</a></li>
-                        <li><a href="{{ path('app_seance_collective_index') }}">Séances Collectives</a></li>
-                        <li><a href="{{ url('app_list_users') }}">Les Adhérents</a></li>
+                        <li><a href="{{ url('app_list_users') }}">Adhérents</a></li>
+                        <li><a href="{{ path('registration_coach') }}">Nouveau Coach</a></li>
+
 
                         <li id="header-logo" class="top-gym-logo">
                             <a href="#">Basic<br/>Fat</a>
                         </li>
-                        <li><a href="{{ path('registration_coach') }}">Nouveau Coach</a></li>
+                        <li><a href="{{ path('app_seance_collective_index') }}">Séances Collectives</a></li>
 
                         <li><a href="{{ path('app_logout') }}">Déconnexion </a></li>
 
