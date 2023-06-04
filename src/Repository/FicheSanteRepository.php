@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\FicheSante;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -23,11 +24,15 @@ class FicheSanteRepository extends ServiceEntityRepository
 
     public function findLatest()
     {
-        return $this->createQueryBuilder('f')
-            ->orderBy('f.date', 'ASC') // suppose que vous avez un champ date dans FicheSante
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getSingleResult();
+        try {
+            return $this->createQueryBuilder('f')
+                ->orderBy('f.date', 'ASC')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 
     public function add(FicheSante $entity, bool $flush = false): void
