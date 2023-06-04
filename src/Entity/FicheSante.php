@@ -29,38 +29,26 @@ class FicheSante
     private $taille;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      * @Assert\NotNull(message="La date ne peut pas être vide.")
      */
     private $date;
 
-    public function __construct()
-    {
-        $this->date = new \DateTime();
-    }
+    /**
+     * @ORM\Column(type="time")
+     */
+    private $heure;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="fichesan")
      */
     private $user;
 
-    /**
-     * @return mixed
-     */
-    public function getUser()
+    public function __construct()
     {
-        return $this->user;
+        $this->date = new \DateTime();
+        $this->heure = new \DateTime();
     }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user): void
-    {
-        $this->user = $user;
-    }
-
-
 
     public function getId(): ?int
     {
@@ -91,8 +79,6 @@ class FicheSante
         return $this;
     }
 
-    // Le reste du code de la classe...
-
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -105,5 +91,25 @@ class FicheSante
         return $this;
     }
 
+    public function getHeure(): ?\DateTimeInterface
+    {
+        return $this->heure;
+    }
 
+    public function setHeure(\DateTimeInterface $heure): self
+    {
+        $this->heure = $heure;
+
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
 }

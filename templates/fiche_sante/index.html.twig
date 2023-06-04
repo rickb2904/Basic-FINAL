@@ -68,6 +68,7 @@
                 <th>Poids</th>
                 <th>Taille</th>
                 <th>Date</th>
+                <th>Heure</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -78,6 +79,8 @@
                 <td>{{ fiche_sante.poids }}</td>
                 <td>{{ fiche_sante.taille }}</td>
                 <td>{{ fiche_sante.date ? fiche_sante.date|date('d-m-Y') : '' }}</td>
+                <td>{{ fiche_sante.date ? fiche_sante.date|date('H:i') : '' }}</td> <!-- Afficher l'heure uniquement -->
+
                 <td>
 
 

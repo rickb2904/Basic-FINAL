@@ -26,7 +26,8 @@ class FicheSanteRepository extends ServiceEntityRepository
     {
         try {
             return $this->createQueryBuilder('f')
-                ->orderBy('f.date', 'ASC')
+                ->orderBy('f.date', 'DESC') // Tri par date décroissante
+                ->addOrderBy('f.heure', 'DESC') // Tri par heure décroissante
                 ->setMaxResults(1)
                 ->getQuery()
                 ->getSingleResult();
@@ -34,6 +35,7 @@ class FicheSanteRepository extends ServiceEntityRepository
             return null;
         }
     }
+
 
     public function add(FicheSante $entity, bool $flush = false): void
     {

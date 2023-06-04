@@ -6,6 +6,7 @@ namespace App\Form;
 
 use App\Entity\FicheSante;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,12 +33,12 @@ class FicheSanteType extends AbstractType
                     new Positive(['message' => 'La taille doit être un nombre positif.']),
                 ],
             ])
-            ->add('date', DateType::class, [
-                'label' => 'Date : ',
+            ->add('date', DateTimeType::class, [ // Modifiez le type en DateTimeType
+                'label' => 'Date et heure : ', // Mettez à jour le libellé du champ
                 'widget' => 'single_text',
                 'html5' => false,
-                'format' => 'dd-MM-yyyy', // Spécifie le format d'affichage de la date (jour-mois-année)
-                'data' => new \DateTime(), // Définit la date du jour comme valeur par défaut
+                'format' => 'dd-MM-yyyy HH:mm', // Spécifie le format d'affichage de la date et de l'heure
+                'data' => new \DateTime(), // Définit la date et l'heure actuelles comme valeur par défaut
                 'disabled' => true, // Désactive le champ pour empêcher la modification
             ]);
     }
