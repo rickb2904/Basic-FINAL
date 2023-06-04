@@ -33,10 +33,16 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/coach, roles: [ROLE_ADHERENT, ROLE_COACH] }
-
-
-
+        - { path: ^/coach, roles: [ROLE_COACH] }
+        - { path: ^/adherent, roles: [ ROLE_ADHERENT ] }
+        - { path: ^/fiche/sante, roles: [ROLE_ADHERENT ] }
+        - { path: ^/inscription, roles: [ROLE_ADHERENT ] }
+        - { path: ^/seance/libre, roles: [ROLE_ADHERENT ] }
+        - { path: ^/activite, roles: [ROLE_COACH] }
+        - { path: ^/seance/collective, roles: [ROLE_COACH] }
+        - { path: ^/listusers, roles: [ROLE_COACH] }
+        - { path: ^/registration/coach, roles: [ROLE_COACH] }
+        - { path: ^/registration/adherent, roles: [ROLE_COACH] }
 
 
 when@test:
