@@ -34,8 +34,12 @@ class FicheSanteController extends AbstractController
         // Définition d'une fonction publique appelée `index()`
 
     {
+        $user = $this->getUser(); // Obtenez l'utilisateur actuel ou utilisez une autre méthode pour récupérer l'utilisateur souhaité
+        $userId = $user->getId();
+
         return $this->render('fiche_sante/index.html.twig', [
-            'fiche_santes' => $ficheSanteRepository->findAll(),
+            'fiche_santes' =>  $ficheSanteRepository->findBy(['user'=>$userId]),
+
         ]);
         // Renvoie une réponse HTTP en rendant une vue et en y passant une liste de tous les fiches de santé
     }
